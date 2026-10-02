@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste de Design Tokens</title>
+
+  <!-- Importação das fontes definidas nas tuas variáveis CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- LIGAÇÃO AO TEU FICHEIRO CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Cabeçalho Principal -->
+    <header>
+      <span class="label">Design System</span>
+      <h1>Teste de Tokens CSS</h1>
+      <p>Esta página utiliza os tokens de cores, tipografia, botões e formulários do ficheiro CSS associado.</p>
+    </header>
+
+    <!-- Navegação -->
+    <nav class="nav">
+      <a href="#" class="nav-item active">Dashboard</a>
+      <a href="#" class="nav-item">Projetos</a>
+      <a href="#" class="nav-item">Definições</a>
+    </nav>
+
+    <!-- Painel de Testes -->
+    <section class="panel">
+      <h2>Painel Principal</h2>
+      <p>Exemplo de componentes estruturados com base nos teus tokens:</p>
+
+      <div class="card-grid">
+
+        <!-- Cartão 1: Formulário -->
+        <div class="card">
+          <div>
+            <h3>Campos de Entrada</h3>
+            <div class="form-group">
+              <label for="search">Pesquisa</label>
+              <input type="text" id="search" class="input-field" placeholder="Escreve aqui...">
+            </div>
+          </div>
+          <button class="btn btn-primary">Pesquisar</button>
+        </div>
+
+        <!-- Cartão 2: Variantes de Botões -->
+        <div class="card">
+          <div>
+            <h3>Botões</h3>
+            <div class="btn-group">
+              <button class="btn btn-primary">Primary</button>
+              <button class="btn btn-secondary">Secondary</button>
+              <button class="btn btn-inverted">Inverted</button>
+              <button class="btn btn-outlined">Outlined</button>
+            </div>
+          </div>
+
+          <div style="margin-top: var(--space-4);">
+            <p style="font-size: var(--font-size-xs); color: var(--color-text-muted);">Botões de Ícone:</p>
+            <div class="icon-btn-group">
+              <button class="icon-btn edit" title="Editar">E</button>
+              <button class="icon-btn design" title="Design">D</button>
+              <button class="icon-btn neutral" title="Neutro">N</button>
+              <button class="icon-btn tag" title="Tag">T</button>
+              <button class="icon-btn delete" title="Eliminar">X</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cartão 3: Estado Semântico -->
+        <div class="card">
+          <div>
+            <h3>Alertas Semânticos</h3>
+            <div class="alert-grid">
+              <div class="alert alert-success">Sucesso</div>
+              <div class="alert alert-warning">Aviso</div>
+              <div class="alert alert-error">Erro</div>
+              <div class="alert alert-info">Informação</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
