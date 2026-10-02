@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { CircleCheck, Info, Pencil, Search, Tag, Trash2, TriangleAlert, CircleAlert, Palette } from "lucide-react";
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,26 +24,35 @@ export const metadata: Metadata = {
 };
 
 const cores = [
-  { nome: "primary", classe: "bg-primary", texto: "text-primary-foreground" },
-  { nome: "secondary", classe: "bg-secondary", texto: "text-secondary-foreground" },
-  { nome: "muted", classe: "bg-muted", texto: "text-muted-foreground" },
-  { nome: "accent", classe: "bg-accent", texto: "text-accent-foreground" },
-  { nome: "destructive", classe: "bg-destructive", texto: "text-destructive-foreground" },
-  { nome: "sucesso", classe: "bg-sucesso", texto: "text-sucesso-foreground" },
-  { nome: "aviso", classe: "bg-aviso", texto: "text-aviso-foreground" },
-  { nome: "card", classe: "bg-card border", texto: "text-card-foreground" },
+  { nome: "primary", valor: "#416800", classe: "bg-primary text-primary-foreground" },
+  { nome: "marca", valor: "#74B816", classe: "bg-marca text-marca-foreground" },
+  { nome: "marca-claro", valor: "#D5F5A6", classe: "bg-marca-claro text-heading" },
+  { nome: "invertido", valor: "#292D30", classe: "bg-invertido text-invertido-foreground" },
+  { nome: "secondary", valor: "#E5E7E9", classe: "bg-secondary text-secondary-foreground" },
+  { nome: "card", valor: "#ECEDEF", classe: "bg-card text-card-foreground border border-input" },
+  { nome: "painel", valor: "#F4F6F8", classe: "bg-painel text-foreground border border-input" },
+  { nome: "background", valor: "#D9DADB", classe: "bg-background text-foreground border border-input" },
+  { nome: "sucesso", valor: "#267647", classe: "bg-sucesso text-sucesso-foreground" },
+  { nome: "aviso", valor: "#E6A23C", classe: "bg-aviso text-aviso-foreground" },
+  { nome: "destructive", valor: "#C91F26", classe: "bg-destructive text-destructive-foreground" },
+  { nome: "info", valor: "#0369A1", classe: "bg-info text-info-foreground" },
 ];
 
 function Seccao({
   titulo,
+  descricao,
   children,
 }: {
   titulo: string;
+  descricao?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="space-y-4">
-      <h2 className="text-lg font-semibold">{titulo}</h2>
+    <section className="bg-painel space-y-4 rounded-lg border p-4 sm:p-6">
+      <div className="space-y-1">
+        <h2 className="text-2xl font-semibold">{titulo}</h2>
+        {descricao && <p className="text-muted-foreground">{descricao}</p>}
+      </div>
       {children}
     </section>
   );
@@ -48,72 +60,151 @@ function Seccao({
 
 export default function DesignSystem() {
   return (
-    <main className="mx-auto w-full max-w-5xl space-y-10 p-4 sm:p-8">
-      <CabecalhoPagina
-        titulo="Design System"
-        descricao="Componentes partilhados por todos os grupos. Usar só o que está nesta página."
-      />
+    <main className="mx-auto w-full max-w-[1100px] space-y-8 p-4 sm:p-8">
+      <div className="space-y-4">
+        <Badge>Design System</Badge>
+        <CabecalhoPagina
+          titulo="Componentes da Plataforma PI2"
+          descricao="Tudo o que os grupos precisam para montar ecrãs. Usar só o que está nesta página."
+          className="border-input"
+        />
+      </div>
 
-      <Seccao titulo="Cores (variáveis em app/globals.css)">
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <Seccao
+        titulo="Cores"
+        descricao="Definidas em app/globals.css. Usar o nome da classe (ex.: bg-primary), nunca o código hexadecimal."
+      >
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {cores.map((c) => (
             <div
               key={c.nome}
-              className={`${c.classe} ${c.texto} flex h-20 items-end rounded-lg p-3 text-sm font-medium`}
+              className={`${c.classe} flex h-24 flex-col justify-end rounded-md p-3 text-sm`}
             >
-              {c.nome}
+              <span className="font-semibold">{c.nome}</span>
+              <span className="font-mono text-xs">{c.valor}</span>
             </div>
           ))}
         </div>
       </Seccao>
 
-      <Seccao titulo="Botões">
-        <div className="flex flex-wrap gap-3">
-          <Button>Principal</Button>
-          <Button variant="secondary">Secundário</Button>
-          <Button variant="outline">Contorno</Button>
-          <Button variant="ghost">Fantasma</Button>
-          <Button variant="destructive">Apagar</Button>
-          <Button variant="link">Ligação</Button>
-          <Button disabled>Desativado</Button>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <Button size="sm">Pequeno</Button>
-          <Button>Normal</Button>
-          <Button size="lg">Grande</Button>
+      <Seccao titulo="Painel principal" descricao="Exemplo de componentes estruturados com base nos tokens.">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="transition-shadow hover:shadow-md">
+            <CardHeader>
+              <CardTitle>Campos de entrada</CardTitle>
+              <CardDescription>Cada campo tem sempre um Label.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="ds-pesquisa">Pesquisa</Label>
+                <Input id="ds-pesquisa" type="search" placeholder="Escreve aqui…" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="ds-erro">Campo com erro</Label>
+                <Input
+                  id="ds-erro"
+                  aria-invalid="true"
+                  aria-describedby="ds-erro-msg"
+                  defaultValue="valor inválido"
+                />
+                <p id="ds-erro-msg" className="text-destructive text-sm">
+                  Este campo é obrigatório.
+                </p>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full">
+                <Search aria-hidden="true" />
+                Pesquisar
+              </Button>
+            </CardFooter>
+          </Card>
+
+          <Card className="transition-shadow hover:shadow-md">
+            <CardHeader>
+              <CardTitle>Botões</CardTitle>
+              <CardDescription>Um só botão principal por ecrã.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex flex-wrap gap-3">
+                <Button>Principal</Button>
+                <Button variant="secondary">Secundário</Button>
+                <Button variant="invertido">Invertido</Button>
+                <Button variant="outline">Contorno</Button>
+                <Button variant="ghost">Discreto</Button>
+                <Button variant="link">Ligação</Button>
+                <Button disabled>Desativado</Button>
+              </div>
+              <div className="space-y-2">
+                <p className="text-muted-foreground text-sm">
+                  Botões de ícone (precisam sempre de aria-label):
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Button size="icon" variant="info" aria-label="Editar">
+                    <Pencil aria-hidden="true" />
+                  </Button>
+                  <Button size="icon" aria-label="Design">
+                    <Palette aria-hidden="true" />
+                  </Button>
+                  <Button size="icon" variant="invertido" aria-label="Etiquetar">
+                    <Tag aria-hidden="true" />
+                  </Button>
+                  <Button size="icon" variant="destructive" aria-label="Eliminar">
+                    <Trash2 aria-hidden="true" />
+                  </Button>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button size="sm">Pequeno</Button>
+                <Button>Normal</Button>
+                <Button size="lg">Grande</Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="transition-shadow hover:shadow-md md:col-span-2 lg:col-span-1">
+            <CardHeader>
+              <CardTitle>Alertas e etiquetas</CardTitle>
+              <CardDescription>Cores semânticas para estados.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Alert variant="sucesso">
+                <CircleCheck aria-hidden="true" />
+                <AlertTitle>Sucesso</AlertTitle>
+                <AlertDescription>Contrato guardado.</AlertDescription>
+              </Alert>
+              <Alert variant="aviso">
+                <TriangleAlert aria-hidden="true" />
+                <AlertTitle>Aviso</AlertTitle>
+                <AlertDescription>O contrato expira em 5 dias.</AlertDescription>
+              </Alert>
+              <Alert variant="destructive">
+                <CircleAlert aria-hidden="true" />
+                <AlertTitle>Erro</AlertTitle>
+                <AlertDescription>Não foi possível guardar.</AlertDescription>
+              </Alert>
+              <Alert variant="info">
+                <Info aria-hidden="true" />
+                <AlertTitle>Informação</AlertTitle>
+                <AlertDescription>Há uma nova versão disponível.</AlertDescription>
+              </Alert>
+              <div className="flex flex-wrap gap-2">
+                <Badge>Novo</Badge>
+                <Badge variant="sucesso">Ativo</Badge>
+                <Badge variant="aviso">Pendente</Badge>
+                <Badge variant="destructive">Expirado</Badge>
+                <Badge variant="info">Rascunho</Badge>
+                <Badge variant="outline">Arquivado</Badge>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </Seccao>
 
-      <Seccao titulo="Formulário (exemplo de login)">
-        <Card className="max-w-sm">
-          <CardHeader>
-            <CardTitle>Entrar</CardTitle>
-            <CardDescription>Use o seu email institucional.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="ds-email">Email</Label>
-              <Input id="ds-email" type="email" placeholder="nome@ipt.pt" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="ds-pass">Palavra-passe</Label>
-              <Input id="ds-pass" type="password" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="ds-erro">Campo com erro</Label>
-              <Input id="ds-erro" aria-invalid="true" aria-describedby="ds-erro-msg" defaultValue="valor inválido" />
-              <p id="ds-erro-msg" className="text-destructive text-sm">
-                Este campo é obrigatório.
-              </p>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full">Entrar</Button>
-          </CardFooter>
-        </Card>
-      </Seccao>
-
-      <Seccao titulo="Estados obrigatórios: vazio, a carregar, erro">
+      <Seccao
+        titulo="Estados obrigatórios"
+        descricao="Todos os ecrãs com dados mostram: vazio, a carregar e erro."
+      >
         <div className="grid gap-4 md:grid-cols-3">
           <EstadoVazio
             titulo="Sem contratos"
@@ -121,7 +212,13 @@ export default function DesignSystem() {
             acao={<Button size="sm">Criar contrato</Button>}
           />
           <ACarregar />
-          <MensagemErro acao={<Button size="sm" variant="outline">Tentar novamente</Button>} />
+          <MensagemErro
+            acao={
+              <Button size="sm" variant="outline">
+                Tentar novamente
+              </Button>
+            }
+          />
         </div>
       </Seccao>
     </main>

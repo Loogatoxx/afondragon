@@ -1,124 +1,160 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 /*
  * ============================================================
  *  TOKENS DO DESIGN SYSTEM (G4/G5)
- *  - Só se mudam cores, fontes e raios AQUI.
- *  - Nos componentes usa-se sempre as classes temáticas
+ *  Origem: site_teste_revisado_sem_mudar_cores/.../styles.css
+ *
+ *  - As cores, fontes e raios só se mudam AQUI.
+ *  - Nos componentes usam-se sempre as classes temáticas
  *    (bg-primary, text-muted-foreground, border-border, ...).
  *  - NUNCA usar cores soltas (bg-blue-600, #1e3a8a, style={{...}}).
- *
- *  PROVISÓRIO: valores iniciais (azul-escuro, Inter, 0.5rem).
- *  Substituir pelos tokens do documento CSS/HTML do grupo.
  * ============================================================
  */
+
 :root {
-  /* Arredondamento base: os outros raios derivam deste */
-  --radius: 0.5rem;
+  /* ---------- 1. Paleta do grupo (valores originais, não alterar) ---------- */
+  /* Prefixo --paleta- em vez de --color- para não chocar com os nomes do Tailwind. */
 
-  /* Fundo e texto da página */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.21 0.03 265);
+  /* Primária — Verde */
+  --paleta-primary: #74B816;
+  --paleta-primary-dark: #416800;
+  --paleta-primary-hover: #619D0D;
+  --paleta-primary-light: #D5F5A6;
 
-  /* Superfícies (cards, popovers) */
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.21 0.03 265);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.21 0.03 265);
+  /* Secundária — Navy / Slate */
+  --paleta-secondary: #182230;
+  --paleta-secondary-dark: #0B111B;
+  --paleta-secondary-light: #566171;
 
-  /* Cor principal da marca (botões, links, destaques) */
-  --primary: oklch(0.42 0.15 262);
-  --primary-foreground: oklch(0.98 0 0);
+  /* Terciária — Azul */
+  --paleta-tertiary: #0284C7;
+  --paleta-tertiary-dark: #0369A1;
+  --paleta-tertiary-light: #51B1F0;
 
-  /* Secundária, discreta e de realce */
-  --secondary: oklch(0.96 0.01 262);
-  --secondary-foreground: oklch(0.25 0.05 262);
-  --muted: oklch(0.96 0.005 262);
-  --muted-foreground: oklch(0.5 0.02 262);
-  --accent: oklch(0.94 0.02 262);
-  --accent-foreground: oklch(0.25 0.05 262);
+  /* Neutras */
+  --paleta-neutral: #F4F6F8;
+  --paleta-white: #FFFFFF;
+  --paleta-black: #000000;
+  --paleta-background: #D9DADB;
+  --paleta-surface: #ECEDEF;
+  --paleta-border: #D1D5DB;
+
+  /* Texto */
+  --paleta-text: #182230;
+  --paleta-text-heading: #17191C;
+  --paleta-text-body: #414838;
+  --paleta-text-muted: #858A80;
+  --paleta-text-inverted: #FFFFFF;
+
+  /* Semânticas */
+  --paleta-success: #267647;
+  --paleta-warning: #E6A23C;
+  --paleta-error: #C91F26;
+  --paleta-info: #0284C7;
+
+  /* Cores específicas de componentes */
+  --button-secondary-bg: #E5E7E9;
+  --button-inverted-bg: #292D30;
+  --input-border: #C5CCB6;
+  --nav-bg: #E5E6E8;
+
+  /* ---------- 2. Papéis usados pelos componentes (shadcn/ui) ---------- */
+  /* Cada papel aponta para uma cor da paleta acima. */
+
+  --background: var(--paleta-background);
+  --foreground: var(--paleta-text-body);
+  --heading: var(--paleta-text-heading);
+
+  --card: var(--paleta-surface);
+  --card-foreground: var(--paleta-text-body);
+  --popover: var(--paleta-white);
+  --popover-foreground: var(--paleta-text);
+  --painel: var(--paleta-neutral);
+
+  /* Botão principal: verde-escuro (o verde claro #74B816 com texto branco não tem contraste) */
+  --primary: var(--paleta-primary-dark);
+  --primary-foreground: var(--paleta-white);
+
+  /* Verde da marca: etiquetas, destaques */
+  --marca: var(--paleta-primary);
+  --marca-foreground: var(--paleta-text-heading);
+  --marca-claro: var(--paleta-primary-light);
+
+  --secondary: var(--button-secondary-bg);
+  --secondary-foreground: var(--paleta-text-body);
+  --invertido: var(--button-inverted-bg);
+  --invertido-foreground: var(--paleta-white);
+
+  --muted: var(--paleta-neutral);
+  /* #566171 em vez de #858A80: o cinzento original só tem 3:1 de contraste */
+  --muted-foreground: var(--paleta-secondary-light);
+  --accent: var(--nav-bg);
+  --accent-foreground: var(--paleta-text);
 
   /* Estados */
-  --destructive: oklch(0.58 0.22 27);
-  --destructive-foreground: oklch(0.98 0 0);
-  --sucesso: oklch(0.6 0.15 150);
-  --sucesso-foreground: oklch(0.98 0 0);
-  --aviso: oklch(0.8 0.15 80);
-  --aviso-foreground: oklch(0.25 0.05 80);
+  --destructive: var(--paleta-error);
+  --destructive-foreground: var(--paleta-white);
+  --sucesso: var(--paleta-success);
+  --sucesso-foreground: var(--paleta-white);
+  --aviso: var(--paleta-warning);
+  --aviso-foreground: var(--paleta-black);
+  /* Fundo de info: azul-escuro (#0284C7 com texto branco fica abaixo de 4.5:1) */
+  --info: var(--paleta-tertiary-dark);
+  --info-foreground: var(--paleta-white);
 
   /* Linhas, campos e foco */
-  --border: oklch(0.91 0.01 262);
-  --input: oklch(0.91 0.01 262);
-  --ring: oklch(0.42 0.15 262);
+  --border: var(--paleta-border);
+  /* Borda dos campos: #858A80 (o #C5CCB6 original quase não se vê sobre a superfície) */
+  --input: var(--paleta-text-muted);
+  --campo: var(--paleta-surface);
+  --ring: var(--paleta-tertiary);
 
   /* Menu lateral (usado pelo grupo de Contratos) */
-  --sidebar: oklch(0.98 0.005 262);
-  --sidebar-foreground: oklch(0.21 0.03 265);
-  --sidebar-primary: oklch(0.42 0.15 262);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.94 0.02 262);
-  --sidebar-accent-foreground: oklch(0.25 0.05 262);
-  --sidebar-border: oklch(0.91 0.01 262);
-  --sidebar-ring: oklch(0.42 0.15 262);
-}
-
-.dark {
-  --background: oklch(0.17 0.02 265);
-  --foreground: oklch(0.97 0 0);
-  --card: oklch(0.21 0.02 265);
-  --card-foreground: oklch(0.97 0 0);
-  --popover: oklch(0.21 0.02 265);
-  --popover-foreground: oklch(0.97 0 0);
-  --primary: oklch(0.68 0.14 262);
-  --primary-foreground: oklch(0.17 0.02 265);
-  --secondary: oklch(0.27 0.02 265);
-  --secondary-foreground: oklch(0.97 0 0);
-  --muted: oklch(0.27 0.02 265);
-  --muted-foreground: oklch(0.71 0.02 262);
-  --accent: oklch(0.3 0.03 262);
-  --accent-foreground: oklch(0.97 0 0);
-  --destructive: oklch(0.7 0.19 22);
-  --destructive-foreground: oklch(0.17 0.02 265);
-  --sucesso: oklch(0.7 0.15 150);
-  --sucesso-foreground: oklch(0.17 0.02 265);
-  --aviso: oklch(0.82 0.14 80);
-  --aviso-foreground: oklch(0.17 0.02 265);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.68 0.14 262);
-  --sidebar: oklch(0.21 0.02 265);
-  --sidebar-foreground: oklch(0.97 0 0);
-  --sidebar-primary: oklch(0.68 0.14 262);
-  --sidebar-primary-foreground: oklch(0.17 0.02 265);
-  --sidebar-accent: oklch(0.3 0.03 262);
-  --sidebar-accent-foreground: oklch(0.97 0 0);
-  --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: oklch(0.68 0.14 262);
+  --sidebar: var(--nav-bg);
+  --sidebar-foreground: var(--paleta-text-body);
+  --sidebar-primary: var(--paleta-primary-dark);
+  --sidebar-primary-foreground: var(--paleta-white);
+  --sidebar-accent: var(--button-secondary-bg);
+  --sidebar-accent-foreground: var(--paleta-text);
+  --sidebar-border: var(--paleta-border);
+  --sidebar-ring: var(--paleta-tertiary);
 }
 
 /* Liga as variáveis acima às classes do Tailwind (bg-primary, text-sucesso, ...) */
 @theme inline {
-  --font-sans: var(--font-inter);
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--font-public-sans), sans-serif;
+  --font-heading: var(--font-plus-jakarta), sans-serif;
 
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  /* Raios do ficheiro do grupo */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Sombras do ficheiro do grupo */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 5%);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 8%);
+  --shadow-lg: 0 8px 24px rgb(0 0 0 / 10%);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-heading: var(--heading);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+  --color-painel: var(--painel);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-marca: var(--marca);
+  --color-marca-foreground: var(--marca-foreground);
+  --color-marca-claro: var(--marca-claro);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-invertido: var(--invertido);
+  --color-invertido-foreground: var(--invertido-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
@@ -129,8 +165,11 @@
   --color-sucesso-foreground: var(--sucesso-foreground);
   --color-aviso: var(--aviso);
   --color-aviso-foreground: var(--aviso-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
+  --color-campo: var(--campo);
   --color-ring: var(--ring);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
@@ -144,9 +183,33 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans leading-normal;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading text-heading leading-tight;
+  }
+  /* Foco visível igual ao do ficheiro do grupo: contorno azul de 3px */
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

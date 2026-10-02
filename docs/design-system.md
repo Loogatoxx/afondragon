@@ -11,6 +11,48 @@
 | Componentes comuns do projeto | `components/comuns/` |
 | Exemplos ao vivo | rota `/design-system` |
 
+## Identidade visual
+
+- **Cores:** paleta do grupo (verde `#74B816` / `#416800`, navy `#182230`, azul `#0284C7`). A lista completa está no topo de `app/globals.css` como `--paleta-*`.
+- **Fontes:** *Plus Jakarta Sans* nos títulos (`font-heading`), *Public Sans* no texto (`font-sans`).
+- **Raios:** `rounded-sm` 0.25rem (botões, campos), `rounded-md` 0.5rem, `rounded-lg` 1rem (painéis), `rounded-xl` 1.5rem (cards).
+- **Espaçamentos:** os `--space-*` do ficheiro original são iguais à escala do Tailwind (`p-4` = 1rem, `gap-6` = 1.5rem, …).
+- **Foco do teclado:** contorno azul de 3px em tudo (não remover `outline`).
+
+### Classes de cor disponíveis
+
+| Classe | Cor | Uso |
+|---|---|---|
+| `bg-primary` / `text-primary-foreground` | `#416800` / branco | Botão principal, item ativo do menu |
+| `bg-marca` | `#74B816` | Etiquetas, destaques (nunca com texto branco) |
+| `bg-marca-claro` | `#D5F5A6` | Fundos suaves de destaque |
+| `bg-secondary` | `#E5E7E9` | Botão secundário |
+| `bg-invertido` | `#292D30` | Botão escuro |
+| `bg-background` | `#D9DADB` | Fundo da página |
+| `bg-card` | `#ECEDEF` | Cards, superfícies |
+| `bg-painel` | `#F4F6F8` | Painéis / secções |
+| `text-foreground` | `#414838` | Texto normal |
+| `text-heading` | `#17191C` | Títulos |
+| `text-muted-foreground` | `#566171` | Texto secundário |
+| `bg-sucesso` | `#267647` | Sucesso |
+| `bg-aviso` | `#E6A23C` (texto preto) | Avisos |
+| `bg-destructive` | `#C91F26` | Erros, apagar |
+| `bg-info` | `#0369A1` | Informação |
+| `border-border` / `border-input` | `#D1D5DB` / `#858A80` | Linhas / bordas de campos |
+
+### Ajustes de acessibilidade (só com cores da paleta)
+
+Testámos o contraste (WCAG AA: 4.5:1 para texto, 3:1 para bordas de campos). Mudámos 4 usos, **sem criar cores novas**:
+
+| Antes | Contraste | Agora | Contraste |
+|---|---|---|---|
+| Hover do botão `#619D0D` + texto branco | 3.3 | `#416800` a 90% | ≈ 6 |
+| Texto secundário `#858A80` sobre `#ECEDEF` | 3.0 | `#566171` (secondary-light) | 5.6 |
+| Info `#0284C7` + texto branco | 4.1 | `#0369A1` (tertiary-dark) | 5.9 |
+| Borda de campo `#C5CCB6` | 1.4 | `#858A80` (text-muted) | 3.0 |
+
+`#0284C7` continua a ser usado no contorno de foco.
+
 ## Regras obrigatórias
 
 1. **Só se usam componentes de `components/ui` e `components/comuns`.**
@@ -24,7 +66,9 @@
 ## Componentes disponíveis
 
 ### Base (`@/components/ui/...`)
-- `Button` — variantes: `default`, `secondary`, `outline`, `ghost`, `destructive`, `link`; tamanhos `sm`, `default`, `lg`, `icon`.
+- `Button` — variantes: `default`, `secondary`, `invertido`, `outline`, `ghost`, `destructive`, `info`, `link`; tamanhos `sm`, `default` (48px), `lg` (56px), `icon` (56px — usar sempre `aria-label`).
+- `Badge` — etiqueta; variantes `default` (verde), `secondary`, `outline`, `sucesso`, `aviso`, `destructive`, `info`.
+- `Alert`, `AlertTitle`, `AlertDescription` — variantes `default`, `sucesso`, `aviso`, `destructive`, `info`.
 - `Input`, `Label`
 - `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
 
@@ -58,4 +102,4 @@ export function ListaContratos({ aCarregar, erro, contratos }) {
 ## Próximos componentes (planeado)
 
 - Aula 2: `select`, `dialog`, `sidebar`
-- Aula 3: tabela, badge, abas; integração com Contratos (cabeçalho, menu lateral, sino)
+- Aula 3: tabela, abas; integração com Contratos (cabeçalho, menu lateral, sino)
