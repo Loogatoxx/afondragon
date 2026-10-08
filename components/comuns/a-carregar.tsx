@@ -1,6 +1,5 @@
-import { LoaderCircle } from "lucide-react"
-
 import { cn } from "@/lib/utils"
+import { Spinner } from "@/components/ui/spinner"
 
 type ACarregarProps = {
   texto?: string
@@ -18,7 +17,7 @@ export function ACarregar({ texto = "A carregar…", className }: ACarregarProps
         className
       )}
     >
-      <LoaderCircle className="size-5 animate-spin" aria-hidden="true" />
+      <Spinner className="size-5" role="presentation" aria-hidden="true" />
       <span>{texto}</span>
     </div>
   )

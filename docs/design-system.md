@@ -78,12 +78,56 @@ Testámos o contraste (WCAG AA: 4.5:1 para texto, 3:1 para bordas de campos). Mu
   - No telemóvel abre como painel por cima do conteúdo; no computador recolhe para ícones (`collapsible="icon"`); atalho Ctrl+B.
   - Item ativo: `isActive` (verde-escuro com texto branco, como no ficheiro do grupo).
 - Peças usadas pela sidebar, também disponíveis: `Separator`, `Sheet`, `Tooltip`, `Skeleton`.
+- `Spinner` — ícone a rodar, para botões "A guardar…" / "A entrar…".
 
 ### Comuns (`@/components/comuns/...`)
 - `CabecalhoPagina` — `titulo`, `descricao?`, `acoes?`
 - `EstadoVazio` — `titulo?`, `descricao?`, `acao?`
 - `ACarregar` — `texto?`
 - `MensagemErro` — `titulo?`, `mensagem?`, `acao?`
+
+## Ecrã de login (para a frente Dados e login)
+
+Exemplo pronto em `/design-system/login` — código em `app/design-system/login/`.
+A página verdadeira `/login` é da frente Dados e login: copiam o layout e trocam a simulação pelo login do Supabase.
+
+Componentes usados: `Card`, `Label`, `Input`, `Button`, `Spinner` e `Alert` (`variant="destructive"`).
+
+```tsx
+<Card className="w-full max-w-md">
+  <CardHeader>
+    <CardTitle>Entrar</CardTitle>
+    <CardDescription>Use o seu email institucional.</CardDescription>
+  </CardHeader>
+  <form action={entrar}>
+    <CardContent className="space-y-4">
+      {erro && (
+        <Alert variant="destructive">
+          <AlertTitle>Não foi possível entrar</AlertTitle>
+          <AlertDescription>{erro}</AlertDescription>
+        </Alert>
+      )}
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input id="email" name="email" type="email" autoComplete="email" required />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="password">Palavra-passe</Label>
+        <Input id="password" name="password" type="password" autoComplete="current-password" required />
+      </div>
+    </CardContent>
+    <CardFooter className="mt-6">
+      <Button type="submit" className="w-full" disabled={aEntrar}>
+        {aEntrar && <Spinner aria-hidden="true" />}
+        {aEntrar ? "A entrar…" : "Entrar"}
+      </Button>
+    </CardFooter>
+  </form>
+</Card>
+```
+
+- Mensagens de erro genéricas ("Email ou palavra-passe incorretos."), nunca dizer qual dos dois falhou.
+- Botão de sair: `<Button variant="outline">Sair</Button>`.
 
 ## Exemplo de um ecrã
 

@@ -228,13 +228,18 @@ export default function DesignSystem() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Sidebar</CardTitle>
-              <CardDescription>Menu lateral da plataforma (grupo de Contratos).</CardDescription>
+              <CardTitle>Ecrãs de exemplo</CardTitle>
+              <CardDescription>Menu lateral (Contratos) e login (Dados e login).</CardDescription>
             </CardHeader>
             <CardContent>
-              <Button asChild variant="outline">
-                <Link href="/design-system/menu">Ver exemplo do menu</Link>
-              </Button>
+              <div className="flex flex-wrap gap-3">
+                <Button asChild variant="outline">
+                  <Link href="/design-system/menu">Ver exemplo do menu</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/design-system/login">Ver exemplo de login</Link>
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>
