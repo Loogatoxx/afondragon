@@ -104,6 +104,9 @@
   --info: var(--paleta-tertiary-dark);
   --info-foreground: var(--paleta-white);
 
+  /* Fundo escurecido atrás de diálogos e painéis laterais */
+  --sobreposicao: var(--paleta-secondary-dark);
+
   /* Linhas, campos e foco */
   --border: var(--paleta-border);
   /* Borda dos campos: #858A80 (o #C5CCB6 original quase não se vê sobre a superfície) */
@@ -167,6 +170,7 @@
   --color-aviso-foreground: var(--aviso-foreground);
   --color-info: var(--info);
   --color-info-foreground: var(--info-foreground);
+  --color-sobreposicao: var(--sobreposicao);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-campo: var(--campo);

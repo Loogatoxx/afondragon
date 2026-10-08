@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CircleCheck, Info, Pencil, Search, Tag, Trash2, TriangleAlert, CircleAlert, Palette } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -18,6 +19,7 @@ import { CabecalhoPagina } from "@/components/comuns/cabecalho-pagina";
 import { EstadoVazio } from "@/components/comuns/estado-vazio";
 import { ACarregar } from "@/components/comuns/a-carregar";
 import { MensagemErro } from "@/components/comuns/mensagem-erro";
+import { ExemploDialog, ExemploSelect } from "./exemplos-interativos";
 
 export const metadata: Metadata = {
   title: "Design System — Plataforma PI2",
@@ -196,6 +198,43 @@ export default function DesignSystem() {
                 <Badge variant="info">Rascunho</Badge>
                 <Badge variant="outline">Arquivado</Badge>
               </div>
+            </CardContent>
+          </Card>
+        </div>
+      </Seccao>
+
+      <Seccao
+        titulo="Seleção, diálogos e menu (Aula 2)"
+        descricao="Todos funcionam só com teclado: Tab, setas, Enter e Esc."
+      >
+        <div className="grid gap-6 md:grid-cols-3">
+          <Card>
+            <CardHeader>
+              <CardTitle>Select</CardTitle>
+              <CardDescription>Escolher uma opção de uma lista.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ExemploSelect />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Dialog</CardTitle>
+              <CardDescription>Confirmar ações ou formulários curtos.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ExemploDialog />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Sidebar</CardTitle>
+              <CardDescription>Menu lateral da plataforma (grupo de Contratos).</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button asChild variant="outline">
+                <Link href="/design-system/menu">Ver exemplo do menu</Link>
+              </Button>
             </CardContent>
           </Card>
         </div>

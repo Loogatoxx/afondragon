@@ -72,6 +72,13 @@ Testámos o contraste (WCAG AA: 4.5:1 para texto, 3:1 para bordas de campos). Mu
 - `Input`, `Label`
 - `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
 
+- `Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`, `SelectGroup`, `SelectLabel` — escolher uma opção. Dar `id` ao `SelectTrigger` e ligar ao `Label` com `htmlFor`.
+- `Dialog`, `DialogTrigger`, `DialogContent`, `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter`, `DialogClose` — confirmações e formulários curtos. Ter sempre `DialogTitle`.
+- `Sidebar` e companhia (`SidebarProvider`, `SidebarInset`, `SidebarMenu`, `SidebarMenuButton`, `SidebarTrigger`, …) — menu lateral. Exemplo completo em `/design-system/menu` (código em `app/design-system/menu/page.tsx`).
+  - No telemóvel abre como painel por cima do conteúdo; no computador recolhe para ícones (`collapsible="icon"`); atalho Ctrl+B.
+  - Item ativo: `isActive` (verde-escuro com texto branco, como no ficheiro do grupo).
+- Peças usadas pela sidebar, também disponíveis: `Separator`, `Sheet`, `Tooltip`, `Skeleton`.
+
 ### Comuns (`@/components/comuns/...`)
 - `CabecalhoPagina` — `titulo`, `descricao?`, `acoes?`
 - `EstadoVazio` — `titulo?`, `descricao?`, `acao?`
@@ -101,5 +108,4 @@ export function ListaContratos({ aCarregar, erro, contratos }) {
 
 ## Próximos componentes (planeado)
 
-- Aula 2: `select`, `dialog`, `sidebar`
 - Aula 3: tabela, abas; integração com Contratos (cabeçalho, menu lateral, sino)
