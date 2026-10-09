@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { ExemploPortal } from "./exemplo-portal";
+import { PortalExample } from "./portal-example";
 
 export const metadata: Metadata = {
   title: "Exemplo do portal — Design System",
@@ -13,12 +13,12 @@ export const metadata: Metadata = {
  * The real layout is app/(portal)/layout.tsx, wired up by the
  * Dados e login (G1) and Contratos (G3) teams.
  */
-export default function ExemploMenu() {
+export default function PortalExamplePage() {
   return (
-    <ExemploPortal>
+    <PortalExample>
       <Button asChild variant="outline" className="w-fit">
         <Link href="/design-system">Voltar ao Design System</Link>
       </Button>
-    </ExemploPortal>
+    </PortalExample>
   );
 }

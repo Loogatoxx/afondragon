@@ -1,15 +1,15 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { CabecalhoPagina } from "@/components/common/cabecalho-pagina";
+import { PageHeader } from "@/components/common/page-header";
 
-export default function Inicio() {
+export default function Home() {
   return (
     <main className="mx-auto w-full max-w-5xl p-4 sm:p-8">
-      <CabecalhoPagina
-        titulo="Plataforma PI2"
-        descricao="Página inicial provisória. Cada grupo acrescenta aqui as suas rotas."
-        acoes={
+      <PageHeader
+        title="UniPortal"
+        description="Página inicial provisória. Cada grupo acrescenta aqui as suas rotas."
+        actions={
           <Button asChild>
             <Link href="/design-system">Ver Design System</Link>
           </Button>

@@ -4,17 +4,17 @@ import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
-import { formatarData, semOtimizar, type Artigo } from "./tipos"
+import { formatDate, skipOptimization, type Article } from "./types"
 
-type CartaoArtigoProps = {
-  artigo: Artigo
+type ArticleCardProps = {
+  article: Article
   /** Click target; without it the card is not clickable (e.g. a preview) */
   href?: string
   className?: string
 }
 
 /** Article card for a news list. The whole card is clickable. */
-export function CartaoArtigo({ artigo, href, className }: CartaoArtigoProps) {
+export function ArticleCard({ article, href, className }: ArticleCardProps) {
   return (
     <Card
       className={cn(
@@ -23,22 +23,22 @@ export function CartaoArtigo({ artigo, href, className }: CartaoArtigoProps) {
       )}
     >
       <div className="bg-muted relative aspect-video overflow-hidden">
-        {artigo.imagem.src && (
+        {article.image.src && (
           <Image
-            src={artigo.imagem.src}
-            alt={artigo.imagem.alt}
+            src={article.image.src}
+            alt={article.image.alt}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-            unoptimized={semOtimizar(artigo.imagem.src)}
+            unoptimized={skipOptimization(article.image.src)}
             className="object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none"
           />
         )}
       </div>
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="secondary">{artigo.categoria}</Badge>
-          <time dateTime={artigo.data} className="text-muted-foreground text-sm">
-            {formatarData(artigo.data)}
+          <Badge variant="secondary">{article.category}</Badge>
+          <time dateTime={article.date} className="text-muted-foreground text-sm">
+            {formatDate(article.date)}
           </time>
         </div>
         <h3 className="text-xl leading-snug font-semibold">
@@ -48,13 +48,13 @@ export function CartaoArtigo({ artigo, href, className }: CartaoArtigoProps) {
               href={href}
               className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
             >
-              {artigo.titulo}
+              {article.title}
             </Link>
           ) : (
-            artigo.titulo
+            article.title
           )}
         </h3>
-        <p className="text-muted-foreground line-clamp-3">{artigo.resumo}</p>
+        <p className="text-muted-foreground line-clamp-3">{article.summary}</p>
       </div>
     </Card>
   )

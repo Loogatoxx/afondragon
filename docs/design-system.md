@@ -60,7 +60,7 @@ Testámos o contraste (WCAG AA: 4.5:1 para texto, 3:1 para bordas de campos). Mu
 2. **Nada de cores soltas.** ❌ `bg-blue-600`, `text-[#333]`, `style={{ color: "red" }}`
    ✅ `bg-primary`, `text-muted-foreground`, `border-border`, `text-destructive`.
 3. **Não instalar outra biblioteca de componentes** (MUI, Bootstrap, Chakra, …).
-4. **Cada ecrã com dados tem 3 estados:** `<ACarregar />`, `<EstadoVazio />` e `<MensagemErro />`.
+4. **Cada ecrã com dados tem 3 estados:** `<LoadingState />`, `<EmptyState />` e `<ErrorMessage />`.
 5. **Funciona no telemóvel e com teclado:** todos os `Input` têm `Label` com `htmlFor`; nada só com rato.
 
 ## Componentes disponíveis
@@ -81,33 +81,33 @@ Testámos o contraste (WCAG AA: 4.5:1 para texto, 3:1 para bordas de campos). Mu
 - `Spinner` — ícone a rodar, para botões "A guardar…" / "A entrar…".
 - `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell`, `TableCaption` — listas de registos. Exemplo completo (com os 4 estados) em `/design-system`, secção «Dados».
 - `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` — separadores; mudam com as setas do teclado.
-- `Empty` (e partes) — base do `EstadoVazio`; usar o `EstadoVazio` nos ecrãs.
+- `Empty` (e partes) — base do `EmptyState`; usar o `EmptyState` nos ecrãs.
 - `Popover` — painel que abre por cima (usado pelo sino).
 
 ### Comuns (`@/components/common/...`)
 Feitos por cima dos componentes do shadcn, não de raiz.
 
-- `CabecalhoPagina` — `titulo`, `descricao?`, `acoes?` (usa `Separator`)
-- `EstadoVazio` — `titulo?`, `descricao?`, `icone?`, `acao?` (usa `Empty`)
-- `ACarregar` — `texto?`, `variante?: "spinner" | "linhas"`, `linhas?` (usa `Spinner` e `Skeleton`)
-- `MensagemErro` — `titulo?`, `mensagem?`, `acao?` (usa `Alert`)
+- `PageHeader` — `title`, `description?`, `actions?` (usa `Separator`)
+- `EmptyState` — `title?`, `description?`, `icon?`, `action?` (usa `Empty`)
+- `LoadingState` — `label?`, `variant?: "spinner" | "rows"`, `rows?` (usa `Spinner` e `Skeleton`)
+- `ErrorMessage` — `title?`, `message?`, `action?` (usa `Alert`)
 
 #### Portal (com a frente Contratos do núcleo)
 
-Só desenham: os dados vêm por props, do registo de módulos e de `notificar()`. Exemplo completo em `/design-system/menu` (código em `app/design-system/menu/exemplo-portal.tsx`).
+Só desenham: os dados vêm por props, do registo de módulos e de `notificar()`. Exemplo completo em `/design-system/menu` (código em `app/design-system/menu/portal-example.tsx`).
 
-- `MenuLateral` — `itens: { id, name, route, contador? }[]`, `icones?: Record<id, Icone>`, `marca?`, `onSair?`. O item ativo vem da rota atual.
-- `CabecalhoPortal` — `titulo?`, `nome?`, `perfil?`, `acoes?` (pôr aqui o sino).
-- `SinoNotificacoes` — `notificacoes: { id, title, message, type, read, createdAt, link? }[]` (`type`: `info` | `success` | `warning` | `error`), `onMarcarComoLida?`, `onMarcarTodas?`, `verTodasHref?` (por defeito `/notificacoes`), `maximo?`.
+- `SideMenu` — `items: { id, name, route, count? }[]`, `icons?: Record<id, Icon>`, `brandName?`, `onSignOut?`. O item ativo vem da rota atual.
+- `PortalHeader` — `title?`, `name?`, `roleLabel?`, `actions?` (pôr aqui o sino).
+- `NotificationBell` — `notifications: { id, title, message, type, read, createdAt, link? }[]` (`type`: `info` | `success` | `warning` | `error`), `onMarkAsRead?`, `onMarkAllAsRead?`, `viewAllHref?` (por defeito `/notificacoes`), `max?`.
 
 Os três têm de estar dentro de `<SidebarProvider>` com `<SidebarInset>` à volta do conteúdo:
 
 ```tsx
 <SidebarProvider>
-  <MenuLateral itens={modulesForRole(me.role)} icones={ICONES} onSair={sair} />
+  <SideMenu items={modulesForRole(me.role)} icons={ICONES} onSignOut={signOut} />
   <SidebarInset>
-    <CabecalhoPortal titulo="Aulas" nome={me.name} perfil={roleLabel}
-      acoes={<SinoNotificacoes notificacoes={avisos} />} />
+    <PortalHeader title="Aulas" name={me.name} roleLabel={roleLabel}
+      actions={<NotificationBell notifications={alerts} />} />
     <main className="p-4 sm:p-8">{children}</main>
   </SidebarInset>
 </SidebarProvider>
@@ -161,18 +161,18 @@ Componentes usados: `Card`, `Label`, `Input`, `Button`, `Spinner` e `Alert` (`va
 ## Exemplo de um ecrã
 
 ```tsx
-import { CabecalhoPagina } from "@/components/common/cabecalho-pagina"
-import { ACarregar } from "@/components/common/a-carregar"
-import { EstadoVazio } from "@/components/common/estado-vazio"
-import { MensagemErro } from "@/components/common/mensagem-erro"
+import { PageHeader } from "@/components/common/cabecalho-pagina"
+import { LoadingState } from "@/components/common/a-carregar"
+import { EmptyState } from "@/components/common/estado-vazio"
+import { ErrorMessage } from "@/components/common/mensagem-erro"
 
-export function ListaContratos({ aCarregar, erro, contratos }) {
+export function ContractList({ loading, error, contracts }) {
   return (
     <>
-      <CabecalhoPagina titulo="Contratos" />
-      {aCarregar ? <ACarregar />
-        : erro ? <MensagemErro mensagem={erro} />
-        : contratos.length === 0 ? <EstadoVazio titulo="Sem contratos" />
+      <PageHeader title="Contratos" />
+      {loading ? <LoadingState />
+        : error ? <ErrorMessage message={erro} />
+        : contracts.length === 0 ? <EmptyState title="Sem contratos" />
         : /* tabela */ null}
     </>
   )
@@ -193,10 +193,10 @@ As imagens de exemplo (`public/design-system/noticias/*.svg`) são ilustrações
 
 ### Componentes (`@/components/common/news/...`)
 
-- `CarrosselNoticias` — `itens: { artigo, href }[]`, `rotulo?`. Cada diapositivo é clicável. Muda com setas, pontos, teclas ← → ou arrastando. **Não avança sozinho** (quem lê devagar não perde a notícia). O texto fica numa faixa escura, para ter contraste sobre qualquer imagem.
-- `CartaoArtigo` — `artigo`, `href?`. O cartão inteiro é clicável; sem `href` serve de pré-visualização.
-- `ArtigoNoticia` — `artigo`. Página de leitura.
-- Tipo `Artigo` em `tipos.ts`: `slug`, `titulo`, `resumo`, `corpo[]`, `categoria`, `data`, `autor`, `imagem { src, alt }`, `destaque?`.
+- `NewsCarousel` — `items: { article, href }[]`, `label?`. Cada diapositivo é clicável. Muda com setas, pontos, teclas ← → ou arrastando. **Não avança sozinho** (quem lê devagar não perde a notícia). O texto fica numa faixa escura, para ter contraste sobre qualquer imagem.
+- `ArticleCard` — `article`, `href?`. O cartão inteiro é clicável; sem `href` serve de pré-visualização.
+- `ArticleView` — `article`. Página de leitura.
+- Tipo `Artigo` em `tipos.ts`: `slug`, `title`, `resumo`, `corpo[]`, `categoria`, `data`, `autor`, `imagem { src, alt }`, `destaque?`.
 
 ### Componentes base novos (`@/components/ui/...`)
 
@@ -218,6 +218,19 @@ Feitos com o axe-core (regras WCAG 2.1 AA) em `/design-system`, `/design-system/
 - Telemóvel: sem scroll horizontal; o menu abre como painel lateral.
 - Contraste: o texto secundário (`#566171`) tem 4.49:1 sobre o fundo da página (`#D9DADB`), mesmo abaixo de 4.5:1. Por isso **`text-muted-foreground` usa-se só sobre cartões e painéis** (5.0 a 5.8:1); diretamente no fundo usa-se `text-foreground`.
 
+## Mudança de nomes (regras do G3)
+
+Os componentes das aulas 1 e 2 (já no `main` do professor) mudaram de nome. Quem os usa só tem de atualizar o import e as props:
+
+| Antes | Agora | Props |
+|---|---|---|
+| `components/comuns/cabecalho-pagina` · `CabecalhoPagina` | `components/common/page-header` · `PageHeader` | `titulo` → `title`, `descricao` → `description`, `acoes` → `actions` |
+| `components/comuns/estado-vazio` · `EstadoVazio` | `components/common/empty-state` · `EmptyState` | `titulo` → `title`, `descricao` → `description`, `acao` → `action`, `icone` → `icon` |
+| `components/comuns/a-carregar` · `ACarregar` | `components/common/loading-state` · `LoadingState` | `texto` → `label`; novo: `variant="rows"`, `rows` |
+| `components/comuns/mensagem-erro` · `MensagemErro` | `components/common/error-message` · `ErrorMessage` | `titulo` → `title`, `mensagem` → `message`, `acao` → `action` |
+| variantes `sucesso`, `aviso`, `invertido` | `success`, `warning`, `inverted` | `Button`, `Badge`, `Alert` |
+| classes `bg-sucesso`, `bg-aviso`, `bg-marca`, `bg-painel`… | `bg-success`, `bg-warning`, `bg-brand`, `bg-panel`… | — |
+
 ## Regras do projeto que afetam o design system (`AGENTS.md`, frente Contratos)
 
 - Pastas e código em inglês: `components/common/` (antes `components/comuns/`), `components/common/news/`. Comentários no código em inglês; texto visível em português de Portugal.
@@ -225,7 +238,7 @@ Feitos com o axe-core (regras WCAG 2.1 AA) em `/design-system`, `/design-system/
 - Perfis: `student`, `teacher`, `staff`, `admin`. No ecrã mostram-se em português (ex.: «Aluno»).
 - Tokens e variantes em inglês: `success`, `warning`, `inverted`, `brand`, `panel`, `field`, `overlay`.
 - Sem valores arbitrários do Tailwind sempre que haja equivalente na escala; sem `style` inline; sem cores em hexadecimal fora de `globals.css`.
-- Cada página tem `metadata`; `/design-system` tem `loading.tsx` (usa `ACarregar`) e `error.tsx` (usa `MensagemErro`).
+- Cada página tem `metadata`; `/design-system` tem `loading.tsx` (usa `LoadingState`) e `error.tsx` (usa `ErrorMessage`).
 - Commits e títulos de PR em inglês (`type(scope): subject`); descrição do PR em português.
 
 ## Próximos passos (Aula 4)

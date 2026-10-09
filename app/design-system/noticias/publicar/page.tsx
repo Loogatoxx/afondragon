@@ -3,11 +3,11 @@ import Link from "next/link";
 import { ArrowLeft, Lock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { CabecalhoPagina } from "@/components/common/cabecalho-pagina";
-import { EstadoVazio } from "@/components/common/estado-vazio";
-import { readRole } from "../dados";
-import { SeletorPerfil } from "../seletor-perfil";
-import { FormularioArtigo } from "./formulario-artigo";
+import { EmptyState } from "@/components/common/empty-state";
+import { PageHeader } from "@/components/common/page-header";
+import { PUBLISHER_ROLES, readRole } from "../data";
+import { RoleSwitcher } from "../role-switcher";
+import { ArticleForm } from "./article-form";
 
 export const metadata: Metadata = {
   title: "Publicar artigo (exemplo) — Design System",
@@ -18,33 +18,34 @@ export const metadata: Metadata = {
  * the real page calls requireRole([...]) from lib/auth (Dados e login, G1),
  * and the server action checks the role again before saving.
  */
-export default async function Publicar(props: PageProps<"/design-system/noticias/publicar">) {
-  const perfil = readRole((await props.searchParams).perfil);
+export default async function PublishPage(props: PageProps<"/design-system/noticias/publicar">) {
+  const role = readRole((await props.searchParams).perfil);
+  const canPublish = PUBLISHER_ROLES.includes(role);
 
   return (
     <main className="mx-auto w-full max-w-6xl space-y-8 p-4 sm:p-8">
-      <SeletorPerfil perfil={perfil} caminho="/design-system/noticias/publicar" />
+      <RoleSwitcher role={role} path="/design-system/noticias/publicar" />
 
       <Button asChild variant="ghost" className="px-2">
-        <Link href={`/design-system/noticias${perfil === "staff" ? "?perfil=staff" : ""}`}>
+        <Link href={`/design-system/noticias${canPublish ? "?perfil=staff" : ""}`}>
           <ArrowLeft aria-hidden="true" />
           Todas as notícias
         </Link>
       </Button>
 
-      <CabecalhoPagina
-        titulo="Publicar artigo"
-        descricao="Escreva a notícia, escolha a imagem de capa e veja como fica antes de publicar."
+      <PageHeader
+        title="Publicar artigo"
+        description="Escreva a notícia, escolha a imagem de capa e veja como fica antes de publicar."
       />
 
-      {perfil === "staff" ? (
-        <FormularioArtigo />
+      {canPublish ? (
+        <ArticleForm />
       ) : (
-        <EstadoVazio
-          icone={Lock}
-          titulo="Não tem permissão para publicar"
-          descricao="Só os editores da newsletter podem publicar artigos. Se precisa de acesso, fale com o Gabinete de Comunicação."
-          acao={
+        <EmptyState
+          icon={Lock}
+          title="Não tem permissão para publicar"
+          description="Só os funcionários com permissão de edição podem publicar artigos. Se precisa de acesso, fale com o Gabinete de Comunicação."
+          action={
             <Button asChild variant="outline">
               <Link href="/design-system/noticias">Ver as notícias</Link>
             </Button>

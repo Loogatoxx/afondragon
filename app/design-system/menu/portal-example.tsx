@@ -1,27 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, CalendarDays, GraduationCap, House, ShieldAlert, UtensilsCrossed } from "lucide-react";
+import {
+  Building2,
+  CalendarDays,
+  GraduationCap,
+  House,
+  ShieldAlert,
+  UtensilsCrossed,
+} from "lucide-react";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { CabecalhoPortal } from "@/components/common/cabecalho-portal";
-import { CabecalhoPagina } from "@/components/common/cabecalho-pagina";
-import { EstadoVazio } from "@/components/common/estado-vazio";
-import { MenuLateral, type ItemMenu } from "@/components/common/menu-lateral";
-import { SinoNotificacoes, type NotificacaoSino } from "@/components/common/sino-notificacoes";
+import { EmptyState } from "@/components/common/empty-state";
+import { NotificationBell, type BellNotification } from "@/components/common/notification-bell";
+import { PageHeader } from "@/components/common/page-header";
+import { PortalHeader } from "@/components/common/portal-header";
+import { SideMenu, type MenuItem } from "@/components/common/side-menu";
 
 // EXAMPLE DATA. In the real portal it comes from the module registry
 // (modulesForRole) and from notify(), owned by Contratos (G3).
-const itens: ItemMenu[] = [
+const items: MenuItem[] = [
   { id: "portal", name: "Portal", route: "/design-system/menu" },
   { id: "classes", name: "Aulas", route: "/design-system/menu#aulas" },
   { id: "schedule", name: "Horários", route: "/design-system/menu#horarios" },
-  { id: "secretariat", name: "Secretaria", route: "/design-system/menu#secretaria", contador: 2 },
+  { id: "secretariat", name: "Secretaria", route: "/design-system/menu#secretaria", count: 2 },
   { id: "cafeteria", name: "Refeitório", route: "/design-system/menu#refeitorio" },
   { id: "complaints", name: "Denúncias", route: "/design-system/menu#denuncias" },
 ];
 
-const icones = {
+const icons = {
   portal: House,
   classes: GraduationCap,
   schedule: CalendarDays,
@@ -30,7 +37,7 @@ const icones = {
   complaints: ShieldAlert,
 };
 
-const avisosIniciais: NotificacaoSino[] = [
+const initialAlerts: BellNotification[] = [
   {
     id: "1",
     title: "Nota lançada",
@@ -57,37 +64,37 @@ const avisosIniciais: NotificacaoSino[] = [
   },
 ];
 
-export function ExemploPortal({ children }: { children: React.ReactNode }) {
-  const [avisos, setAvisos] = useState(avisosIniciais);
+export function PortalExample({ children }: { children: React.ReactNode }) {
+  const [alerts, setAlerts] = useState(initialAlerts);
 
   return (
     <SidebarProvider>
-      <MenuLateral itens={itens} icones={icones} onSair={() => {}} />
+      <SideMenu items={items} icons={icons} onSignOut={() => {}} />
       <SidebarInset>
-        <CabecalhoPortal
-          titulo="Início"
-          nome="Ana Exemplo"
-          perfil="Aluno"
-          acoes={
-            <SinoNotificacoes
-              notificacoes={avisos}
-              verTodasHref="/design-system/menu"
-              onMarcarComoLida={(id) =>
-                setAvisos((a) => a.map((n) => (n.id === id ? { ...n, read: true } : n)))
+        <PortalHeader
+          title="Portal"
+          name="Ana Exemplo"
+          roleLabel="Aluno"
+          actions={
+            <NotificationBell
+              notifications={alerts}
+              viewAllHref="/design-system/menu"
+              onMarkAsRead={(id) =>
+                setAlerts((list) => list.map((n) => (n.id === id ? { ...n, read: true } : n)))
               }
-              onMarcarTodas={() => setAvisos((a) => a.map((n) => ({ ...n, read: true })))}
+              onMarkAllAsRead={() => setAlerts((list) => list.map((n) => ({ ...n, read: true })))}
             />
           }
         />
         <div className="mx-auto w-full max-w-6xl space-y-6 p-4 sm:p-8">
-          <CabecalhoPagina
-            titulo="Início"
-            descricao="Exemplo do portal: menu lateral, cabeçalho e sino. Ctrl+B abre e fecha o menu."
+          <PageHeader
+            title="Portal"
+            description="Exemplo do portal: menu lateral, cabeçalho e sino. Ctrl+B abre e fecha o menu."
           />
           {children}
-          <EstadoVazio
-            titulo="Sem conteúdo ainda"
-            descricao="Cada grupo coloca aqui o conteúdo do seu módulo."
+          <EmptyState
+            title="Sem conteúdo ainda"
+            description="Cada grupo coloca aqui o conteúdo do seu módulo."
           />
         </div>
       </SidebarInset>

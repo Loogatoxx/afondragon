@@ -14,7 +14,7 @@ const publicSans = Public_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Plataforma PI2",
+  title: "UniPortal",
   description: "Projeto integrado PI2 — CTeSP TPSI",
 };
 

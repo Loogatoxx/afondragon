@@ -20,34 +20,34 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-type Icone = React.ComponentType<{ className?: string }>
+type Icon = React.ComponentType<{ className?: string }>
 
 /** A menu item. Compatible with PortalModule from lib/modules (id, name, route). */
-export type ItemMenu = {
+export type MenuItem = {
   id: string
   name: string
   route: string
   /** Optional count next to the item (e.g. pending requests) */
-  contador?: number
+  count?: number
 }
 
-type MenuLateralProps = {
+type SideMenuProps = {
   /** Modules the person can see, already filtered by role (e.g. modulesForRole(role)) */
-  itens: ItemMenu[]
+  items: MenuItem[]
   /** Icon for each module, keyed by id. Missing ones get a generic icon. */
-  icones?: Record<string, Icone>
+  icons?: Record<string, Icon>
   /** Short name shown at the top of the menu */
-  marca?: string
+  brandName?: string
   /** Sign-out handler; without it the "Sair" button is hidden */
-  onSair?: () => void
+  onSignOut?: () => void
 }
 
 /**
  * Portal side menu. Presentation only: the items come from the module
  * registry (lib/modules, G3). Must be rendered inside a <SidebarProvider>.
  */
-export function MenuLateral({ itens, icones = {}, marca = "UniPortal", onSair }: MenuLateralProps) {
-  const rotaAtual = usePathname()
+export function SideMenu({ items, icons = {}, brandName = "UniPortal", onSignOut }: SideMenuProps) {
+  const currentPath = usePathname()
 
   return (
     <Sidebar collapsible="icon">
@@ -58,10 +58,10 @@ export function MenuLateral({ itens, icones = {}, marca = "UniPortal", onSair }:
             aria-hidden="true"
             className="bg-brand text-brand-foreground font-heading flex size-8 shrink-0 items-center justify-center rounded-md font-bold"
           >
-            {marca.charAt(0)}
+            {brandName.charAt(0)}
           </span>
           <span className="font-heading text-heading truncate font-semibold group-data-[collapsible=icon]:hidden">
-            {marca}
+            {brandName}
           </span>
         </div>
       </SidebarHeader>
@@ -72,19 +72,20 @@ export function MenuLateral({ itens, icones = {}, marca = "UniPortal", onSair }:
           <SidebarGroupContent>
             <nav aria-label="Menu principal">
               <SidebarMenu>
-                {itens.map((item) => {
-                  const IconeItem = icones[item.id] ?? LayoutGrid
-                  const ativo =
-                    rotaAtual === item.route || rotaAtual.startsWith(`${item.route}/`)
+                {items.map((item) => {
+                  const ItemIcon = icons[item.id] ?? LayoutGrid
+                  // Sub-routes (e.g. /aulas/123) keep the module highlighted
+                  const isActive =
+                    currentPath === item.route || currentPath.startsWith(`${item.route}/`)
                   return (
                     <SidebarMenuItem key={item.id}>
-                      <SidebarMenuButton asChild isActive={ativo} tooltip={item.name}>
+                      <SidebarMenuButton asChild isActive={isActive} tooltip={item.name}>
                         <Link href={item.route}>
-                          <IconeItem aria-hidden="true" />
+                          <ItemIcon aria-hidden="true" />
                           <span>{item.name}</span>
                         </Link>
                       </SidebarMenuButton>
-                      {!!item.contador && <SidebarMenuBadge>{item.contador}</SidebarMenuBadge>}
+                      {!!item.count && <SidebarMenuBadge>{item.count}</SidebarMenuBadge>}
                     </SidebarMenuItem>
                   )
                 })}
@@ -94,11 +95,11 @@ export function MenuLateral({ itens, icones = {}, marca = "UniPortal", onSair }:
         </SidebarGroup>
       </SidebarContent>
 
-      {onSair && (
+      {onSignOut && (
         <SidebarFooter>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Sair" onClick={onSair}>
+              <SidebarMenuButton tooltip="Sair" onClick={onSignOut}>
                 <LogOut aria-hidden="true" />
                 <span>Sair</span>
               </SidebarMenuButton>

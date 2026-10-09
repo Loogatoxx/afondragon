@@ -26,13 +26,13 @@ import {
 import { Input } from "@/components/ui/input";
 
 /** Select example with a Label (keyboard accessible: arrows + Enter). */
-export function ExemploSelect() {
-  const [estado, setEstado] = useState<string>();
+export function SelectExample() {
+  const [status, setStatus] = useState<string>();
 
   return (
     <div className="space-y-2">
       <Label htmlFor="ds-estado">Estado do contrato</Label>
-      <Select value={estado} onValueChange={setEstado}>
+      <Select value={status} onValueChange={setStatus}>
         <SelectTrigger id="ds-estado">
           <SelectValue placeholder="Escolha um estado" />
         </SelectTrigger>
@@ -47,14 +47,14 @@ export function ExemploSelect() {
         </SelectContent>
       </Select>
       <p className="text-muted-foreground text-sm">
-        Selecionado: {estado ?? "nenhum"}
+        Selecionado: {status ?? "nenhum"}
       </p>
     </div>
   );
 }
 
 /** Confirmation Dialog example (closes with Esc, focus stays trapped inside). */
-export function ExemploDialog() {
+export function DialogExample() {
   return (
     <div className="flex flex-wrap gap-3">
       <Dialog>

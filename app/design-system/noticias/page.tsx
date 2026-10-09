@@ -3,33 +3,34 @@ import Link from "next/link";
 import { PenLine } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { CabecalhoPagina } from "@/components/common/cabecalho-pagina";
-import { EstadoVazio } from "@/components/common/estado-vazio";
-import { CartaoArtigo } from "@/components/common/news/cartao-artigo";
-import { CarrosselNoticias } from "@/components/common/news/carrossel-noticias";
-import { ARTIGOS, readRole } from "./dados";
-import { SeletorPerfil } from "./seletor-perfil";
+import { EmptyState } from "@/components/common/empty-state";
+import { PageHeader } from "@/components/common/page-header";
+import { ArticleCard } from "@/components/common/news/article-card";
+import { NewsCarousel } from "@/components/common/news/news-carousel";
+import { ARTICLES, PUBLISHER_ROLES, readRole } from "./data";
+import { RoleSwitcher } from "./role-switcher";
 
 export const metadata: Metadata = {
   title: "Notícias (exemplo) — Design System",
 };
 
 /** EXAMPLE of the news page: featured carousel and article list. */
-export default async function Noticias(props: PageProps<"/design-system/noticias">) {
-  const perfil = readRole((await props.searchParams).perfil);
-  const destaques = ARTIGOS.filter((a) => a.destaque);
-  const recentes = [...ARTIGOS].sort((a, b) => b.data.localeCompare(a.data));
-  const sufixo = perfil === "staff" ? "?perfil=staff" : "";
+export default async function NewsPage(props: PageProps<"/design-system/noticias">) {
+  const role = readRole((await props.searchParams).perfil);
+  const canPublish = PUBLISHER_ROLES.includes(role);
+  const featured = ARTICLES.filter((a) => a.featured);
+  const latest = [...ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
+  const suffix = role === "staff" ? "?perfil=staff" : "";
 
   return (
     <main className="mx-auto w-full max-w-6xl space-y-8 p-4 sm:p-8">
-      <SeletorPerfil perfil={perfil} caminho="/design-system/noticias" />
+      <RoleSwitcher role={role} path="/design-system/noticias" />
 
-      <CabecalhoPagina
-        titulo="Notícias"
-        descricao="O que se passa no campus."
-        acoes={
-          perfil === "staff" && (
+      <PageHeader
+        title="Notícias"
+        description="O que se passa no campus."
+        actions={
+          canPublish && (
             <Button asChild>
               <Link href="/design-system/noticias/publicar?perfil=staff">
                 <PenLine aria-hidden="true" />
@@ -40,26 +41,26 @@ export default async function Noticias(props: PageProps<"/design-system/noticias
         }
       />
 
-      <CarrosselNoticias
-        itens={destaques.map((artigo) => ({
-          artigo,
-          href: `/design-system/noticias/${artigo.slug}${sufixo}`,
+      <NewsCarousel
+        items={featured.map((article) => ({
+          article,
+          href: `/design-system/noticias/${article.slug}${suffix}`,
         }))}
       />
 
-      <section aria-labelledby="titulo-recentes" className="space-y-4">
-        <h2 id="titulo-recentes" className="text-2xl font-semibold">
+      <section aria-labelledby="latest-title" className="space-y-4">
+        <h2 id="latest-title" className="text-2xl font-semibold">
           Mais recentes
         </h2>
-        {recentes.length === 0 ? (
-          <EstadoVazio titulo="Ainda não há notícias" />
+        {latest.length === 0 ? (
+          <EmptyState title="Ainda não há notícias" />
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {recentes.map((artigo) => (
-              <CartaoArtigo
-                key={artigo.slug}
-                artigo={artigo}
-                href={`/design-system/noticias/${artigo.slug}${sufixo}`}
+            {latest.map((article) => (
+              <ArticleCard
+                key={article.slug}
+                article={article}
+                href={`/design-system/noticias/${article.slug}${suffix}`}
               />
             ))}
           </div>

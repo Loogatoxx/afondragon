@@ -22,18 +22,18 @@ import { Spinner } from "@/components/ui/spinner";
  * The logic (Supabase, session, redirect) is theirs: this only simulates
  * the request to show the "signing in" and "error" states.
  */
-export function FormularioLogin() {
-  const [aEntrar, setAEntrar] = useState(false);
-  const [erro, setErro] = useState<string | null>(null);
+export function LoginForm() {
+  const [signingIn, setSigningIn] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  async function entrar(evento: React.FormEvent<HTMLFormElement>) {
-    evento.preventDefault();
-    setErro(null);
-    setAEntrar(true);
+  async function signIn(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setSigningIn(true);
     // Simulated: the real page calls Supabase sign-in here.
     await new Promise((r) => setTimeout(r, 1200));
-    setAEntrar(false);
-    setErro("Email ou palavra-passe incorretos.");
+    setSigningIn(false);
+    setError("Email ou palavra-passe incorretos.");
   }
 
   return (
@@ -43,13 +43,13 @@ export function FormularioLogin() {
         <CardDescription>Use o seu email institucional.</CardDescription>
       </CardHeader>
 
-      <form onSubmit={entrar}>
+      <form onSubmit={signIn}>
         <CardContent className="space-y-4">
-          {erro && (
+          {error && (
             <Alert variant="destructive">
               <CircleAlert aria-hidden="true" />
               <AlertTitle>Não foi possível entrar</AlertTitle>
-              <AlertDescription>{erro}</AlertDescription>
+              <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
 
@@ -62,7 +62,7 @@ export function FormularioLogin() {
               autoComplete="email"
               placeholder="nome@ipt.pt"
               required
-              aria-invalid={erro ? true : undefined}
+              aria-invalid={error ? true : undefined}
             />
           </div>
 
@@ -74,15 +74,15 @@ export function FormularioLogin() {
               type="password"
               autoComplete="current-password"
               required
-              aria-invalid={erro ? true : undefined}
+              aria-invalid={error ? true : undefined}
             />
           </div>
         </CardContent>
 
         <CardFooter className="mt-6">
-          <Button type="submit" className="w-full" disabled={aEntrar}>
-            {aEntrar && <Spinner role="presentation" aria-hidden="true" />}
-            {aEntrar ? "A entrar…" : "Entrar"}
+          <Button type="submit" className="w-full" disabled={signingIn}>
+            {signingIn && <Spinner role="presentation" aria-hidden="true" />}
+            {signingIn ? "A entrar…" : "Entrar"}
           </Button>
         </CardFooter>
       </form>

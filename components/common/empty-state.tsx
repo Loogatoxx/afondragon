@@ -11,34 +11,34 @@ import {
 } from "@/components/ui/empty"
 import { cn } from "@/lib/utils"
 
-type EstadoVazioProps = {
-  titulo?: string
-  descricao?: string
+type EmptyStateProps = {
+  title?: string
+  description?: string
   /** lucide-react icon; defaults to an empty inbox */
-  icone?: React.ComponentType<{ className?: string }>
+  icon?: React.ComponentType<{ className?: string }>
   /** Suggested action, e.g. <Button>Criar o primeiro</Button> */
-  acao?: React.ReactNode
+  action?: React.ReactNode
   className?: string
 }
 
 /** Show when a list or table has no data. Built on the shadcn Empty. */
-export function EstadoVazio({
-  titulo = "Ainda não há nada aqui",
-  descricao,
-  icone: Icone = Inbox,
-  acao,
+export function EmptyState({
+  title = "Ainda não há nada aqui",
+  description,
+  icon: Icon = Inbox,
+  action,
   className,
-}: EstadoVazioProps) {
+}: EmptyStateProps) {
   return (
     <Empty className={cn("bg-card border", className)}>
       <EmptyHeader>
         <EmptyMedia variant="icon">
-          <Icone aria-hidden="true" />
+          <Icon aria-hidden="true" />
         </EmptyMedia>
-        <EmptyTitle>{titulo}</EmptyTitle>
-        {descricao && <EmptyDescription>{descricao}</EmptyDescription>}
+        <EmptyTitle>{title}</EmptyTitle>
+        {description && <EmptyDescription>{description}</EmptyDescription>}
       </EmptyHeader>
-      {acao && <EmptyContent>{acao}</EmptyContent>}
+      {action && <EmptyContent>{action}</EmptyContent>}
     </Empty>
   )
 }

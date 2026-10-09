@@ -4,15 +4,15 @@ import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { cn } from "@/lib/utils"
 
-type CabecalhoPortalProps = {
+type PortalHeaderProps = {
   /** Current section name (e.g. "Aulas") */
-  titulo?: string
+  title?: string
   /** Signed-in person's name */
-  nome?: string
+  name?: string
   /** Role label shown to the user, in Portuguese (e.g. "Aluno" for student) */
-  perfil?: string
-  /** Right-hand slot: usually <SinoNotificacoes /> */
-  acoes?: React.ReactNode
+  roleLabel?: string
+  /** Right-hand slot: usually <NotificationBell /> */
+  actions?: React.ReactNode
   className?: string
 }
 
@@ -20,12 +20,12 @@ type CabecalhoPortalProps = {
  * Portal top bar: menu button, current section, bell and person.
  * Must be rendered inside a <SidebarProvider>.
  */
-export function CabecalhoPortal({ titulo, nome, perfil, acoes, className }: CabecalhoPortalProps) {
-  const iniciais = nome
+export function PortalHeader({ title, name, roleLabel, actions, className }: PortalHeaderProps) {
+  const initials = name
     ?.split(" ")
     .filter(Boolean)
     .slice(0, 2)
-    .map((p) => p[0]?.toUpperCase())
+    .map((part) => part[0]?.toUpperCase())
     .join("")
 
   return (
@@ -36,30 +36,30 @@ export function CabecalhoPortal({ titulo, nome, perfil, acoes, className }: Cabe
       )}
     >
       <SidebarTrigger />
-      {titulo && (
+      {title && (
         <>
           <Separator orientation="vertical" className="mx-1 h-6!" />
-          <span className="text-heading truncate font-medium">{titulo}</span>
+          <span className="text-heading truncate font-medium">{title}</span>
         </>
       )}
 
       <div className="ml-auto flex items-center gap-2">
-        {acoes}
-        {nome && (
+        {actions}
+        {name && (
           <div className="flex items-center gap-2 pl-1">
             <span
               aria-hidden="true"
               className="bg-primary text-primary-foreground flex size-9 items-center justify-center rounded-full text-sm font-semibold"
             >
-              {iniciais}
+              {initials}
             </span>
             <span className="hidden flex-col leading-tight sm:flex">
-              <span className="text-heading text-sm font-medium">{nome}</span>
-              {perfil && <span className="text-foreground text-xs capitalize">{perfil}</span>}
+              <span className="text-heading text-sm font-medium">{name}</span>
+              {roleLabel && <span className="text-foreground text-xs">{roleLabel}</span>}
             </span>
             <span className="sr-only sm:hidden">
-              {nome}
-              {perfil ? `, ${perfil}` : ""}
+              {name}
+              {roleLabel ? `, ${roleLabel}` : ""}
             </span>
           </div>
         )}

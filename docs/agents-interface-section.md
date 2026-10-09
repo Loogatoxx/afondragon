@@ -16,14 +16,14 @@
   `bg-destructive`, `bg-info`, `border-border`, …). No hex colours, no Tailwind palette colours
   (`bg-blue-600`), no inline `style`. Avoid arbitrary values (`w-[37px]`).
 - Rebranding = change `app/globals.css` and the logo. Components never change for a rebrand.
-- Every screen: one `CabecalhoPagina`, and three data states: `ACarregar` (loading),
-  `EstadoVazio` (empty) and `MensagemErro` (error). Route segments also get `loading.tsx` and `error.tsx`.
+- Every screen: one `PageHeader`, and three data states: `LoadingState` (loading),
+  `EmptyState` (empty) and `ErrorMessage` (error). Route segments also get `loading.tsx` and `error.tsx`.
 - One primary `Button` per screen; others use `variant="secondary"` or `"outline"`.
   Destructive actions are confirmed with `Dialog`.
 - Status labels with `Badge`: `success` (done), `warning` (pending), `destructive` (refused/expired),
   `info`, `outline` (draft/archived).
-- Portal shell: `MenuLateral` (items from `modulesForRole(role)`, never hand-written), `CabecalhoPortal`
-  and `SinoNotificacoes` (alerts from `notify()`), inside `SidebarProvider`. Example: `/design-system/menu`.
+- Portal shell: `SideMenu` (items from `modulesForRole(role)`, never hand-written), `PortalHeader`
+  and `NotificationBell` (alerts from `notify()`), inside `SidebarProvider`. Example: `/design-system/menu`.
 - Accessibility: every `Input`/`Select`/`Textarea` has a `Label` with `htmlFor`; icon-only buttons have
   `aria-label`; every image has meaningful `alt` (`alt=""` if decorative); everything works with the
   keyboard and at 390 px without horizontal scroll. `text-muted-foreground` only on cards/panels,

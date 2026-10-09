@@ -2,27 +2,28 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Spinner } from "@/components/ui/spinner"
 import { cn } from "@/lib/utils"
 
-type ACarregarProps = {
-  texto?: string
-  /** "spinner" (default) or "linhas" (skeleton rows) for lists and tables */
-  variante?: "spinner" | "linhas"
-  /** Number of rows in the "linhas" variant */
-  linhas?: number
+type LoadingStateProps = {
+  /** Text announced to the user */
+  label?: string
+  /** "spinner" (default) or "rows" (skeleton rows) for lists and tables */
+  variant?: "spinner" | "rows"
+  /** Number of rows in the "rows" variant */
+  rows?: number
   className?: string
 }
 
 /** Show while data is being requested from the server. */
-export function ACarregar({
-  texto = "A carregar…",
-  variante = "spinner",
-  linhas = 3,
+export function LoadingState({
+  label = "A carregar…",
+  variant = "spinner",
+  rows = 3,
   className,
-}: ACarregarProps) {
-  if (variante === "linhas") {
+}: LoadingStateProps) {
+  if (variant === "rows") {
     return (
       <div role="status" aria-live="polite" className={cn("space-y-3", className)}>
-        <span className="sr-only">{texto}</span>
-        {Array.from({ length: linhas }, (_, i) => (
+        <span className="sr-only">{label}</span>
+        {Array.from({ length: rows }, (_, i) => (
           <Skeleton key={i} className="h-12 w-full" />
         ))}
       </div>
@@ -39,7 +40,7 @@ export function ACarregar({
       )}
     >
       <Spinner className="size-5" role="presentation" aria-hidden="true" />
-      <span>{texto}</span>
+      <span>{label}</span>
     </div>
   )
 }

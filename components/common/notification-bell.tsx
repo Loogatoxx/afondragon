@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 
 /** Fields the bell displays. A subset of Notification from lib/notifications (G3). */
-export type NotificacaoSino = {
+export type BellNotification = {
   id: string
   title: string
   message: string
@@ -21,28 +21,27 @@ export type NotificacaoSino = {
   link?: string
 }
 
-type SinoNotificacoesProps = {
-  notificacoes: NotificacaoSino[]
+type NotificationBellProps = {
+  notifications: BellNotification[]
   /** Called when the person opens an alert (to mark it as read) */
-  onMarcarComoLida?: (id: string) => void
+  onMarkAsRead?: (id: string) => void
   /** Called by the "Marcar todas como lidas" button */
-  onMarcarTodas?: () => void
+  onMarkAllAsRead?: () => void
   /** Page with the full list */
-  verTodasHref?: string
+  viewAllHref?: string
   /** How many alerts to show in the panel */
-  maximo?: number
+  max?: number
 }
 
-const corDoTipo: Record<NotificacaoSino["type"], string> = {
+const dotColour: Record<BellNotification["type"], string> = {
   info: "bg-info",
   success: "bg-success",
   warning: "bg-warning",
   error: "bg-destructive",
 }
 
-function quandoFoi(iso: string) {
-  const data = new Date(iso)
-  return data.toLocaleString("pt-PT", {
+function formatWhen(iso: string) {
+  return new Date(iso).toLocaleString("pt-PT", {
     day: "2-digit",
     month: "2-digit",
     hour: "2-digit",
@@ -51,31 +50,28 @@ function quandoFoi(iso: string) {
 }
 
 /** Header bell: unread counter and list of the latest alerts. */
-export function SinoNotificacoes({
-  notificacoes,
-  onMarcarComoLida,
-  onMarcarTodas,
-  verTodasHref = "/notificacoes",
-  maximo = 5,
-}: SinoNotificacoesProps) {
-  const porLer = notificacoes.filter((n) => !n.read).length
-  const visiveis = notificacoes.slice(0, maximo)
-  const rotulo =
-    porLer === 0
-      ? "Notificações, nenhuma por ler"
-      : `Notificações, ${porLer} por ler`
+export function NotificationBell({
+  notifications,
+  onMarkAsRead,
+  onMarkAllAsRead,
+  viewAllHref = "/notificacoes",
+  max = 5,
+}: NotificationBellProps) {
+  const unread = notifications.filter((n) => !n.read).length
+  const visible = notifications.slice(0, max)
+  const label = unread === 0 ? "Notificações, nenhuma por ler" : `Notificações, ${unread} por ler`
 
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative size-10" aria-label={rotulo}>
+        <Button variant="ghost" size="icon" className="relative size-10" aria-label={label}>
           <Bell aria-hidden="true" />
-          {porLer > 0 && (
+          {unread > 0 && (
             <Badge
               aria-hidden="true"
               className="absolute -top-0.5 -right-0.5 h-5 min-w-5 px-1 text-xs tabular-nums"
             >
-              {porLer > 9 ? "9+" : porLer}
+              {unread > 9 ? "9+" : unread}
             </Badge>
           )}
         </Button>
@@ -84,8 +80,8 @@ export function SinoNotificacoes({
       <PopoverContent align="end" className="w-80 p-0">
         <div className="flex items-center justify-between gap-2 px-4 py-3">
           <p className="font-heading text-heading font-semibold">Notificações</p>
-          {porLer > 0 && onMarcarTodas && (
-            <Button variant="link" size="sm" className="h-auto px-0" onClick={onMarcarTodas}>
+          {unread > 0 && onMarkAllAsRead && (
+            <Button variant="link" size="sm" className="h-auto px-0" onClick={onMarkAllAsRead}>
               <CheckCheck aria-hidden="true" />
               Marcar todas como lidas
             </Button>
@@ -93,20 +89,20 @@ export function SinoNotificacoes({
         </div>
         <Separator />
 
-        {visiveis.length === 0 ? (
+        {visible.length === 0 ? (
           <p className="text-muted-foreground px-4 py-8 text-center text-sm">
             Não tem notificações.
           </p>
         ) : (
           <ul className="max-h-80 overflow-y-auto">
-            {visiveis.map((n) => {
-              const conteudo = (
+            {visible.map((n) => {
+              const content = (
                 <>
                   <span
                     aria-hidden="true"
                     className={cn(
                       "mt-1.5 size-2 shrink-0 rounded-full",
-                      n.read ? "bg-transparent" : corDoTipo[n.type]
+                      n.read ? "bg-transparent" : dotColour[n.type]
                     )}
                   />
                   <span className="min-w-0 flex-1 space-y-0.5">
@@ -118,31 +114,27 @@ export function SinoNotificacoes({
                       {n.message}
                     </span>
                     <span className="text-muted-foreground block text-xs">
-                      {quandoFoi(n.createdAt)}
+                      {formatWhen(n.createdAt)}
                     </span>
                   </span>
                 </>
               )
-              const classes =
+              const itemClasses =
                 "hover:bg-accent focus-visible:bg-accent flex w-full gap-3 px-4 py-3 text-left"
 
               return (
                 <li key={n.id} className="border-b last:border-b-0">
                   {n.link ? (
-                    <Link
-                      href={n.link}
-                      className={classes}
-                      onClick={() => onMarcarComoLida?.(n.id)}
-                    >
-                      {conteudo}
+                    <Link href={n.link} className={itemClasses} onClick={() => onMarkAsRead?.(n.id)}>
+                      {content}
                     </Link>
                   ) : (
                     <button
                       type="button"
-                      className={classes}
-                      onClick={() => onMarcarComoLida?.(n.id)}
+                      className={itemClasses}
+                      onClick={() => onMarkAsRead?.(n.id)}
                     >
-                      {conteudo}
+                      {content}
                     </button>
                   )}
                 </li>
@@ -154,7 +146,7 @@ export function SinoNotificacoes({
         <Separator />
         <div className="p-2">
           <Button asChild variant="ghost" size="sm" className="w-full">
-            <Link href={verTodasHref}>Ver todas</Link>
+            <Link href={viewAllHref}>Ver todas</Link>
           </Button>
         </div>
       </PopoverContent>
