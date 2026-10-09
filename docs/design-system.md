@@ -117,46 +117,9 @@ Os três têm de estar dentro de `<SidebarProvider>` com `<SidebarInset>` à vol
 
 ## Ecrã de login (para a frente Dados e login)
 
-Exemplo pronto em `/design-system/login` — código em `app/design-system/login/`.
-A página verdadeira `/login` é da frente Dados e login: copiam o layout e trocam a simulação pelo login do Supabase.
-
-Componentes usados: `Card`, `Label`, `Input`, `Button`, `Spinner` e `Alert` (`variant="destructive"`).
-
-```tsx
-<Card className="w-full max-w-md">
-  <CardHeader>
-    <CardTitle>Entrar</CardTitle>
-    <CardDescription>Use o seu email institucional.</CardDescription>
-  </CardHeader>
-  <form action={entrar}>
-    <CardContent className="space-y-4">
-      {erro && (
-        <Alert variant="destructive">
-          <AlertTitle>Não foi possível entrar</AlertTitle>
-          <AlertDescription>{erro}</AlertDescription>
-        </Alert>
-      )}
-      <div className="space-y-2">
-        <Label htmlFor="email">Email</Label>
-        <Input id="email" name="email" type="email" autoComplete="email" required />
-      </div>
-      <div className="space-y-2">
-        <Label htmlFor="password">Palavra-passe</Label>
-        <Input id="password" name="password" type="password" autoComplete="current-password" required />
-      </div>
-    </CardContent>
-    <CardFooter className="mt-6">
-      <Button type="submit" className="w-full" disabled={aEntrar}>
-        {aEntrar && <Spinner aria-hidden="true" />}
-        {aEntrar ? "A entrar…" : "Entrar"}
-      </Button>
-    </CardFooter>
-  </form>
-</Card>
-```
-
-- Mensagens de erro genéricas ("Email ou palavra-passe incorretos."), nunca dizer qual dos dois falhou.
-- Botão de sair: `<Button variant="outline">Sair</Button>`.
+Pronto em `components/common/auth/`: `LoginScreen` (ecrã completo com a fotografia do campus) e
+`LoginForm` (só o formulário). Recebem a server action do G1 por props (`action`). Instruções
+completas em `docs/site-prototype.md`.
 
 ## Exemplo de um ecrã
 

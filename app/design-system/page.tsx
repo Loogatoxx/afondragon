@@ -238,10 +238,10 @@ export default function DesignSystem() {
                   <Link href="/design-system/menu">Ver exemplo do portal</Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link href="/design-system/login">Ver exemplo de login</Link>
+                  <Link href="/login">Ver página de login</Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link href="/design-system/noticias">Ver exemplo de notícias</Link>
+                  <Link href="/noticias">Ver notícias (portal)</Link>
                 </Button>
               </div>
             </CardContent>

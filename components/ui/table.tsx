@@ -8,6 +8,8 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
     <div
       data-slot="table-container"
+      // Focusable so keyboard users can scroll wide tables on small screens
+      tabIndex={0}
       className="relative w-full overflow-x-auto"
     >
       <table
