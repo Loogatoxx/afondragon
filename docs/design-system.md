@@ -179,6 +179,37 @@ export function ListaContratos({ aCarregar, erro, contratos }) {
 }
 ```
 
+## Notícias / newsletter (extra, fora das aulas)
+
+Exemplo completo em `/design-system/newsletter` (código em `app/design-system/newsletter/`):
+
+- **Lista** (`/design-system/newsletter`): carrossel de destaques + grelha de cartões.
+- **Artigo** (`/design-system/newsletter/<slug>`): capa, título, autor, data e texto.
+- **Publicar** (`/design-system/newsletter/publicar`): formulário com validação, imagem de capa com descrição obrigatória e pré-visualização ao vivo. Só para quem tem permissão.
+
+A permissão está **simulada** com `?perfil=editor` no endereço. No projeto verdadeiro a página chama `exigirPerfil([...])` (frente Dados e login) e o servidor volta a verificar a permissão ao gravar. O exemplo **não grava nada**: guardar o artigo e a imagem (ex.: Supabase Storage) é trabalho de quem fizer o módulo.
+
+As imagens de exemplo (`public/design-system/newsletter/*.svg`) são ilustrações com as cores da paleta; trocar por fotografias reais.
+
+### Componentes (`@/components/comuns/noticias/...`)
+
+- `CarrosselNoticias` — `itens: { artigo, href }[]`, `rotulo?`. Cada diapositivo é clicável. Muda com setas, pontos, teclas ← → ou arrastando. **Não avança sozinho** (quem lê devagar não perde a notícia). O texto fica numa faixa escura, para ter contraste sobre qualquer imagem.
+- `CartaoArtigo` — `artigo`, `href?`. O cartão inteiro é clicável; sem `href` serve de pré-visualização.
+- `ArtigoNoticia` — `artigo`. Página de leitura.
+- Tipo `Artigo` em `tipos.ts`: `slug`, `titulo`, `resumo`, `corpo[]`, `categoria`, `data`, `autor`, `imagem { src, alt }`, `destaque?`.
+
+### Componentes base novos (`@/components/ui/...`)
+
+- `Carousel`, `CarouselContent`, `CarouselItem`, `CarouselPrevious`, `CarouselNext` (shadcn, usa `embla-carousel-react`).
+- `Textarea` — texto longo, com o mesmo aspeto do `Input`.
+- `Checkbox` — sempre com `Label` ao lado.
+
+### Regras para imagens
+
+- Toda a imagem tem `alt` que descreve o que se vê. Imagens decorativas: `alt=""`.
+- Capas em 16:9; o componente corta para caber (`object-cover`).
+- Texto por cima de imagens só com faixa escura por baixo (`bg-sobreposicao/80`).
+
 ## Testes de acessibilidade (Aula 3)
 
 Feitos com o axe-core (regras WCAG 2.1 AA) em `/design-system`, `/design-system/menu` e `/design-system/login`, a 1280 px e a 390 px (telemóvel): **sem problemas**.

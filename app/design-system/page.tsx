@@ -230,7 +230,7 @@ export default function DesignSystem() {
           <Card>
             <CardHeader>
               <CardTitle>Ecrãs de exemplo</CardTitle>
-              <CardDescription>Portal com menu, cabeçalho e sino (Contratos) e login (Dados e login).</CardDescription>
+              <CardDescription>Portal (menu, cabeçalho e sino), login e notícias com carrossel.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
@@ -239,6 +239,9 @@ export default function DesignSystem() {
                 </Button>
                 <Button asChild variant="outline">
                   <Link href="/design-system/login">Ver exemplo de login</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/design-system/newsletter">Ver exemplo de notícias</Link>
                 </Button>
               </div>
             </CardContent>

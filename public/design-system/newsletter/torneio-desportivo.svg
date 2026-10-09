@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Bola de futebol num campo">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0284C7"/><stop offset="1" stop-color="#0369A1"/></linearGradient></defs>
+<rect width="1200" height="675" fill="url(#g)"/>
+
+<rect x="0" y="420" width="1200" height="255" fill="#416800"/>
+<g stroke="#D5F5A6" stroke-width="8" fill="none" opacity=".8"><rect x="80" y="450" width="1040" height="190"/><line x1="600" y1="450" x2="600" y2="640"/><circle cx="600" cy="545" r="60"/></g>
+<circle cx="600" cy="280" r="120" fill="#FFFFFF"/>
+<g fill="#182230"><polygon points="600,225 640,255 625,300 575,300 560,255"/>
+<polygon points="520,215 545,205 555,240 525,262 505,245"/><polygon points="680,215 655,205 645,240 675,262 695,245"/>
+<polygon points="545,350 575,330 600,345 590,385 555,380"/><polygon points="655,350 625,330 600,345 610,385 645,380"/></g>
+</svg>
