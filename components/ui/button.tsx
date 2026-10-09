@@ -12,8 +12,8 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-accent",
-        invertido:
-          "bg-invertido text-invertido-foreground shadow-xs hover:bg-invertido/90",
+        inverted:
+          "bg-inverted text-inverted-foreground shadow-xs hover:bg-inverted/90",
         outline:
           "border border-input bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground",
         ghost: "hover:bg-accent hover:text-accent-foreground",

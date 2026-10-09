@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Edifício do campus">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D5F5A6"/><stop offset="1" stop-color="#74B816"/></linearGradient></defs>
+<rect width="1200" height="675" fill="url(#g)"/>
+
+<circle cx="980" cy="150" r="70" fill="#FFFFFF" opacity=".7"/>
+<rect x="0" y="560" width="1200" height="115" fill="#416800"/>
+<rect x="330" y="250" width="540" height="310" fill="#ECEDEF"/>
+<polygon points="300,250 600,120 900,250" fill="#182230"/>
+<g fill="#566171"><rect x="370" y="290" width="55" height="70" rx="4"/><rect x="370" y="390" width="55" height="70" rx="4"/><rect x="465" y="290" width="55" height="70" rx="4"/><rect x="465" y="390" width="55" height="70" rx="4"/><rect x="560" y="290" width="55" height="70" rx="4"/><rect x="560" y="390" width="55" height="70" rx="4"/><rect x="655" y="290" width="55" height="70" rx="4"/><rect x="655" y="390" width="55" height="70" rx="4"/><rect x="750" y="290" width="55" height="70" rx="4"/><rect x="750" y="390" width="55" height="70" rx="4"/></g>
+<rect x="560" y="470" width="80" height="90" fill="#416800"/>
+<rect x="150" y="430" width="22" height="130" fill="#182230"/><circle cx="161" cy="400" r="70" fill="#416800"/>
+<rect x="1020" y="440" width="22" height="120" fill="#182230"/><circle cx="1031" cy="410" r="60" fill="#416800"/>
+</svg>

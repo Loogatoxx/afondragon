@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Public_Sans } from "next/font/google";
 import "./globals.css";
 
-// Fontes do ficheiro do grupo: títulos e texto
+// Design system fonts: headings and body text
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
   subsets: ["latin"],
@@ -14,7 +14,7 @@ const publicSans = Public_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Plataforma PI2",
+  title: "UniPortal",
   description: "Projeto integrado PI2 — CTeSP TPSI",
 };
 

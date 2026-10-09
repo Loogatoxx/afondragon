@@ -29,7 +29,7 @@ const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
-// Itens com 3.5rem (--nav-item-size do grupo) + margem
+// 3.5rem items (the group's --nav-item-size) + padding
 const SIDEBAR_WIDTH_ICON = "4.5rem"
 const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
@@ -70,7 +70,7 @@ function SidebarProvider({
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = React.useState(false)
 
-  // Estado interno; pode ser controlado de fora com `open` e `onOpenChange`.
+  // Internal state; can be controlled from outside with `open` and `onOpenChange`.
   const [_open, _setOpen] = React.useState(defaultOpen)
   const open = openProp ?? _open
   const setOpen = React.useCallback(
@@ -82,7 +82,7 @@ function SidebarProvider({
         _setOpen(openState)
       }
 
-      // Guarda o estado num cookie para manter o menu aberto/fechado entre páginas.
+      // Persist the state in a cookie to keep the menu open/closed across pages.
       document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
     },
     [setOpenProp, open]
@@ -92,7 +92,7 @@ function SidebarProvider({
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open)
   }, [isMobile, setOpen, setOpenMobile])
 
-  // Atalho de teclado: Ctrl/Cmd + B abre e fecha o menu.
+  // Keyboard shortcut: Ctrl/Cmd + B toggles the menu.
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
@@ -211,7 +211,7 @@ function Sidebar({
       data-side={side}
       data-slot="sidebar"
     >
-      {/* Ocupa o espaço da sidebar no layout */}
+      {/* Reserves the sidebar's space in the layout */}
       <div
         data-slot="sidebar-gap"
         className={cn(
@@ -468,7 +468,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
   )
 }
 
-// Item ativo: verde-escuro com texto branco (--nav-active-bg do grupo)
+// Active item: dark green with white text (the group's --nav-active-bg)
 const sidebarMenuButtonVariants = cva(
   "peer/menu-button flex w-full items-center gap-3 overflow-hidden rounded-md px-3 text-left text-base font-medium transition-[width,height,padding,background-color,color] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-primary data-[active=true]:text-sidebar-primary-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-14! group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0! group-data-[collapsible=icon]:[&>span]:sr-only [&>span:last-child]:truncate [&>svg]:size-5 [&>svg]:shrink-0",
   {
@@ -579,7 +579,7 @@ function SidebarMenuBadge({
       data-slot="sidebar-menu-badge"
       data-sidebar="menu-badge"
       className={cn(
-        "bg-marca text-marca-foreground pointer-events-none absolute top-1/2 right-2 flex h-5 min-w-5 -translate-y-1/2 items-center justify-center rounded-sm px-1 text-xs font-semibold tabular-nums select-none",
+        "bg-brand text-brand-foreground pointer-events-none absolute top-1/2 right-2 flex h-5 min-w-5 -translate-y-1/2 items-center justify-center rounded-sm px-1 text-xs font-semibold tabular-nums select-none",
         "group-data-[collapsible=icon]:hidden",
         className
       )}

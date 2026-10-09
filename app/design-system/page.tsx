@@ -15,45 +15,46 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CabecalhoPagina } from "@/components/comuns/cabecalho-pagina";
-import { EstadoVazio } from "@/components/comuns/estado-vazio";
-import { ACarregar } from "@/components/comuns/a-carregar";
-import { MensagemErro } from "@/components/comuns/mensagem-erro";
-import { ExemploDialog, ExemploSelect } from "./exemplos-interativos";
+import { EmptyState } from "@/components/common/empty-state";
+import { ErrorMessage } from "@/components/common/error-message";
+import { LoadingState } from "@/components/common/loading-state";
+import { PageHeader } from "@/components/common/page-header";
+import { DialogExample, SelectExample } from "./interactive-examples";
+import { TableExample } from "./table-example";
 
 export const metadata: Metadata = {
-  title: "Design System — Plataforma PI2",
+  title: "Design System — UniPortal",
 };
 
-const cores = [
-  { nome: "primary", valor: "#416800", classe: "bg-primary text-primary-foreground" },
-  { nome: "marca", valor: "#74B816", classe: "bg-marca text-marca-foreground" },
-  { nome: "marca-claro", valor: "#D5F5A6", classe: "bg-marca-claro text-heading" },
-  { nome: "invertido", valor: "#292D30", classe: "bg-invertido text-invertido-foreground" },
-  { nome: "secondary", valor: "#E5E7E9", classe: "bg-secondary text-secondary-foreground" },
-  { nome: "card", valor: "#ECEDEF", classe: "bg-card text-card-foreground border border-input" },
-  { nome: "painel", valor: "#F4F6F8", classe: "bg-painel text-foreground border border-input" },
-  { nome: "background", valor: "#D9DADB", classe: "bg-background text-foreground border border-input" },
-  { nome: "sucesso", valor: "#267647", classe: "bg-sucesso text-sucesso-foreground" },
-  { nome: "aviso", valor: "#E6A23C", classe: "bg-aviso text-aviso-foreground" },
-  { nome: "destructive", valor: "#C91F26", classe: "bg-destructive text-destructive-foreground" },
-  { nome: "info", valor: "#0369A1", classe: "bg-info text-info-foreground" },
+const colours = [
+  { name: "primary", value: "#416800", className: "bg-primary text-primary-foreground" },
+  { name: "brand", value: "#74B816", className: "bg-brand text-brand-foreground" },
+  { name: "brand-light", value: "#D5F5A6", className: "bg-brand-light text-heading" },
+  { name: "inverted", value: "#292D30", className: "bg-inverted text-inverted-foreground" },
+  { name: "secondary", value: "#E5E7E9", className: "bg-secondary text-secondary-foreground" },
+  { name: "card", value: "#ECEDEF", className: "bg-card text-card-foreground border border-input" },
+  { name: "panel", value: "#F4F6F8", className: "bg-panel text-foreground border border-input" },
+  { name: "background", value: "#D9DADB", className: "bg-background text-foreground border border-input" },
+  { name: "success", value: "#267647", className: "bg-success text-success-foreground" },
+  { name: "warning", value: "#E6A23C", className: "bg-warning text-warning-foreground" },
+  { name: "destructive", value: "#C91F26", className: "bg-destructive text-destructive-foreground" },
+  { name: "info", value: "#0369A1", className: "bg-info text-info-foreground" },
 ];
 
-function Seccao({
-  titulo,
-  descricao,
+function Section({
+  title,
+  description,
   children,
 }: {
-  titulo: string;
-  descricao?: string;
+  title: string;
+  description?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="bg-painel space-y-4 rounded-lg border p-4 sm:p-6">
+    <section className="bg-panel space-y-4 rounded-lg border p-4 sm:p-6">
       <div className="space-y-1">
-        <h2 className="text-2xl font-semibold">{titulo}</h2>
-        {descricao && <p className="text-muted-foreground">{descricao}</p>}
+        <h2 className="text-2xl font-semibold">{title}</h2>
+        {description && <p className="text-muted-foreground">{description}</p>}
       </div>
       {children}
     </section>
@@ -62,34 +63,34 @@ function Seccao({
 
 export default function DesignSystem() {
   return (
-    <main className="mx-auto w-full max-w-[1100px] space-y-8 p-4 sm:p-8">
+    <main className="mx-auto w-full max-w-6xl space-y-8 p-4 sm:p-8">
       <div className="space-y-4">
         <Badge>Design System</Badge>
-        <CabecalhoPagina
-          titulo="Componentes da Plataforma PI2"
-          descricao="Tudo o que os grupos precisam para montar ecrãs. Usar só o que está nesta página."
+        <PageHeader
+          title="Componentes do UniPortal"
+          description="Tudo o que os grupos precisam para montar ecrãs. Usar só o que está nesta página."
           className="border-input"
         />
       </div>
 
-      <Seccao
-        titulo="Cores"
-        descricao="Definidas em app/globals.css. Usar o nome da classe (ex.: bg-primary), nunca o código hexadecimal."
+      <Section
+        title="Cores"
+        description="Definidas em app/globals.css. Usar o nome da classe (ex.: bg-primary), nunca o código hexadecimal."
       >
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {cores.map((c) => (
+          {colours.map((c) => (
             <div
-              key={c.nome}
-              className={`${c.classe} flex h-24 flex-col justify-end rounded-md p-3 text-sm`}
+              key={c.name}
+              className={`${c.className} flex h-24 flex-col justify-end rounded-md p-3 text-sm`}
             >
-              <span className="font-semibold">{c.nome}</span>
-              <span className="font-mono text-xs">{c.valor}</span>
+              <span className="font-semibold">{c.name}</span>
+              <span className="font-mono text-xs">{c.value}</span>
             </div>
           ))}
         </div>
-      </Seccao>
+      </Section>
 
-      <Seccao titulo="Painel principal" descricao="Exemplo de componentes estruturados com base nos tokens.">
+      <Section title="Painel principal" description="Exemplo de componentes estruturados com base nos tokens.">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Card className="transition-shadow hover:shadow-md">
             <CardHeader>
@@ -131,7 +132,7 @@ export default function DesignSystem() {
               <div className="flex flex-wrap gap-3">
                 <Button>Principal</Button>
                 <Button variant="secondary">Secundário</Button>
-                <Button variant="invertido">Invertido</Button>
+                <Button variant="inverted">Invertido</Button>
                 <Button variant="outline">Contorno</Button>
                 <Button variant="ghost">Discreto</Button>
                 <Button variant="link">Ligação</Button>
@@ -148,7 +149,7 @@ export default function DesignSystem() {
                   <Button size="icon" aria-label="Design">
                     <Palette aria-hidden="true" />
                   </Button>
-                  <Button size="icon" variant="invertido" aria-label="Etiquetar">
+                  <Button size="icon" variant="inverted" aria-label="Etiquetar">
                     <Tag aria-hidden="true" />
                   </Button>
                   <Button size="icon" variant="destructive" aria-label="Eliminar">
@@ -170,12 +171,12 @@ export default function DesignSystem() {
               <CardDescription>Cores semânticas para estados.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Alert variant="sucesso">
+              <Alert variant="success">
                 <CircleCheck aria-hidden="true" />
                 <AlertTitle>Sucesso</AlertTitle>
                 <AlertDescription>Contrato guardado.</AlertDescription>
               </Alert>
-              <Alert variant="aviso">
+              <Alert variant="warning">
                 <TriangleAlert aria-hidden="true" />
                 <AlertTitle>Aviso</AlertTitle>
                 <AlertDescription>O contrato expira em 5 dias.</AlertDescription>
@@ -192,8 +193,8 @@ export default function DesignSystem() {
               </Alert>
               <div className="flex flex-wrap gap-2">
                 <Badge>Novo</Badge>
-                <Badge variant="sucesso">Ativo</Badge>
-                <Badge variant="aviso">Pendente</Badge>
+                <Badge variant="success">Ativo</Badge>
+                <Badge variant="warning">Pendente</Badge>
                 <Badge variant="destructive">Expirado</Badge>
                 <Badge variant="info">Rascunho</Badge>
                 <Badge variant="outline">Arquivado</Badge>
@@ -201,11 +202,11 @@ export default function DesignSystem() {
             </CardContent>
           </Card>
         </div>
-      </Seccao>
+      </Section>
 
-      <Seccao
-        titulo="Seleção, diálogos e menu (Aula 2)"
-        descricao="Todos funcionam só com teclado: Tab, setas, Enter e Esc."
+      <Section
+        title="Seleção, diálogos e menu (Aula 2)"
+        description="Todos funcionam só com teclado: Tab, setas, Enter e Esc."
       >
         <div className="grid gap-6 md:grid-cols-3">
           <Card>
@@ -214,7 +215,7 @@ export default function DesignSystem() {
               <CardDescription>Escolher uma opção de uma lista.</CardDescription>
             </CardHeader>
             <CardContent>
-              <ExemploSelect />
+              <SelectExample />
             </CardContent>
           </Card>
           <Card>
@@ -223,48 +224,58 @@ export default function DesignSystem() {
               <CardDescription>Confirmar ações ou formulários curtos.</CardDescription>
             </CardHeader>
             <CardContent>
-              <ExemploDialog />
+              <DialogExample />
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
               <CardTitle>Ecrãs de exemplo</CardTitle>
-              <CardDescription>Menu lateral (Contratos) e login (Dados e login).</CardDescription>
+              <CardDescription>Portal (menu, cabeçalho e sino), login e notícias com carrossel.</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
                 <Button asChild variant="outline">
-                  <Link href="/design-system/menu">Ver exemplo do menu</Link>
+                  <Link href="/design-system/menu">Ver exemplo do portal</Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link href="/design-system/login">Ver exemplo de login</Link>
+                  <Link href="/login">Ver página de login</Link>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/noticias">Ver notícias (portal)</Link>
                 </Button>
               </div>
             </CardContent>
           </Card>
         </div>
-      </Seccao>
+      </Section>
 
-      <Seccao
-        titulo="Estados obrigatórios"
-        descricao="Todos os ecrãs com dados mostram: vazio, a carregar e erro."
+      <Section
+        title="Dados: tabela, etiquetas e separadores (Aula 3)"
+        description="Um ecrã de lista completo. Mude de separador para ver os quatro estados."
+      >
+        <TableExample />
+      </Section>
+
+      <Section
+        title="Estados obrigatórios"
+        description="Todos os ecrãs com dados mostram: vazio, a carregar e erro."
       >
         <div className="grid gap-4 md:grid-cols-3">
-          <EstadoVazio
-            titulo="Sem contratos"
-            descricao="Ainda não criou nenhum contrato."
-            acao={<Button size="sm">Criar contrato</Button>}
+          <EmptyState
+            title="Sem contratos"
+            description="Ainda não criou nenhum contrato."
+            action={<Button size="sm">Criar contrato</Button>}
           />
-          <ACarregar />
-          <MensagemErro
-            acao={
+          <LoadingState />
+          <ErrorMessage
+            action={
               <Button size="sm" variant="outline">
                 Tentar novamente
               </Button>
             }
           />
         </div>
-      </Seccao>
+      </Section>
     </main>
   );
 }
