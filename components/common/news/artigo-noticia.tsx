@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { formatarData, semOtimizar, type Artigo } from "./tipos"
 
-/** Página de leitura de um artigo: capa, título, autor, data e texto. */
+/** Article reading view: cover, title, author, date and body. */
 export function ArtigoNoticia({ artigo }: { artigo: Artigo }) {
   return (
     <article className="bg-card mx-auto w-full max-w-3xl overflow-hidden rounded-xl shadow-sm">

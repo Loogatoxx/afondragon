@@ -3,9 +3,9 @@ import Link from "next/link";
 import { ArrowLeft, Lock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { CabecalhoPagina } from "@/components/comuns/cabecalho-pagina";
-import { EstadoVazio } from "@/components/comuns/estado-vazio";
-import { lerPerfil } from "../dados";
+import { CabecalhoPagina } from "@/components/common/cabecalho-pagina";
+import { EstadoVazio } from "@/components/common/estado-vazio";
+import { readRole } from "../dados";
 import { SeletorPerfil } from "../seletor-perfil";
 import { FormularioArtigo } from "./formulario-artigo";
 
@@ -14,19 +14,19 @@ export const metadata: Metadata = {
 };
 
 /**
- * EXEMPLO da zona de publicação. A permissão aqui é simulada pelo endereço;
- * no projeto verdadeiro a página chama exigirPerfil([...]) da frente Dados e login,
- * e o servidor volta a verificar a permissão ao gravar.
+ * EXAMPLE of the publishing area. The permission is simulated through the URL;
+ * the real page calls requireRole([...]) from lib/auth (Dados e login, G1),
+ * and the server action checks the role again before saving.
  */
-export default async function Publicar(props: PageProps<"/design-system/newsletter/publicar">) {
-  const perfil = lerPerfil((await props.searchParams).perfil);
+export default async function Publicar(props: PageProps<"/design-system/noticias/publicar">) {
+  const perfil = readRole((await props.searchParams).perfil);
 
   return (
-    <main className="mx-auto w-full max-w-[1100px] space-y-8 p-4 sm:p-8">
-      <SeletorPerfil perfil={perfil} caminho="/design-system/newsletter/publicar" />
+    <main className="mx-auto w-full max-w-6xl space-y-8 p-4 sm:p-8">
+      <SeletorPerfil perfil={perfil} caminho="/design-system/noticias/publicar" />
 
       <Button asChild variant="ghost" className="px-2">
-        <Link href={`/design-system/newsletter${perfil === "editor" ? "?perfil=editor" : ""}`}>
+        <Link href={`/design-system/noticias${perfil === "staff" ? "?perfil=staff" : ""}`}>
           <ArrowLeft aria-hidden="true" />
           Todas as notícias
         </Link>
@@ -37,7 +37,7 @@ export default async function Publicar(props: PageProps<"/design-system/newslett
         descricao="Escreva a notícia, escolha a imagem de capa e veja como fica antes de publicar."
       />
 
-      {perfil === "editor" ? (
+      {perfil === "staff" ? (
         <FormularioArtigo />
       ) : (
         <EstadoVazio
@@ -46,7 +46,7 @@ export default async function Publicar(props: PageProps<"/design-system/newslett
           descricao="Só os editores da newsletter podem publicar artigos. Se precisa de acesso, fale com o Gabinete de Comunicação."
           acao={
             <Button asChild variant="outline">
-              <Link href="/design-system/newsletter">Ver as notícias</Link>
+              <Link href="/design-system/noticias">Ver as notícias</Link>
             </Button>
           }
         />

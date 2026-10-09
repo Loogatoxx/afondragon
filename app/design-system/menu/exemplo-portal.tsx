@@ -4,30 +4,30 @@ import { useState } from "react";
 import { Building2, CalendarDays, GraduationCap, House, ShieldAlert, UtensilsCrossed } from "lucide-react";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { CabecalhoPortal } from "@/components/comuns/cabecalho-portal";
-import { CabecalhoPagina } from "@/components/comuns/cabecalho-pagina";
-import { EstadoVazio } from "@/components/comuns/estado-vazio";
-import { MenuLateral, type ItemMenu } from "@/components/comuns/menu-lateral";
-import { SinoNotificacoes, type NotificacaoSino } from "@/components/comuns/sino-notificacoes";
+import { CabecalhoPortal } from "@/components/common/cabecalho-portal";
+import { CabecalhoPagina } from "@/components/common/cabecalho-pagina";
+import { EstadoVazio } from "@/components/common/estado-vazio";
+import { MenuLateral, type ItemMenu } from "@/components/common/menu-lateral";
+import { SinoNotificacoes, type NotificacaoSino } from "@/components/common/sino-notificacoes";
 
-// DADOS DE EXEMPLO. No portal verdadeiro vêm do registo de módulos e de
-// notificar(), da frente Contratos do núcleo.
+// EXAMPLE DATA. In the real portal it comes from the module registry
+// (modulesForRole) and from notify(), owned by Contratos (G3).
 const itens: ItemMenu[] = [
-  { id: "portal", name: "Início", route: "/design-system/menu" },
-  { id: "aulas", name: "Aulas", route: "/design-system/menu#aulas" },
-  { id: "horarios", name: "Horários", route: "/design-system/menu#horarios" },
-  { id: "secretaria", name: "Secretaria", route: "/design-system/menu#secretaria", contador: 2 },
-  { id: "refeitorio", name: "Refeitório", route: "/design-system/menu#refeitorio" },
-  { id: "denuncias", name: "Denúncias", route: "/design-system/menu#denuncias" },
+  { id: "portal", name: "Portal", route: "/design-system/menu" },
+  { id: "classes", name: "Aulas", route: "/design-system/menu#aulas" },
+  { id: "schedule", name: "Horários", route: "/design-system/menu#horarios" },
+  { id: "secretariat", name: "Secretaria", route: "/design-system/menu#secretaria", contador: 2 },
+  { id: "cafeteria", name: "Refeitório", route: "/design-system/menu#refeitorio" },
+  { id: "complaints", name: "Denúncias", route: "/design-system/menu#denuncias" },
 ];
 
 const icones = {
   portal: House,
-  aulas: GraduationCap,
-  horarios: CalendarDays,
-  secretaria: Building2,
-  refeitorio: UtensilsCrossed,
-  denuncias: ShieldAlert,
+  classes: GraduationCap,
+  schedule: CalendarDays,
+  secretariat: Building2,
+  cafeteria: UtensilsCrossed,
+  complaints: ShieldAlert,
 };
 
 const avisosIniciais: NotificacaoSino[] = [
@@ -35,7 +35,7 @@ const avisosIniciais: NotificacaoSino[] = [
     id: "1",
     title: "Nota lançada",
     message: "Já pode consultar a nota de Programação Web.",
-    type: "sucesso",
+    type: "success",
     read: false,
     createdAt: "2026-10-15T09:30:00",
   },
@@ -43,7 +43,7 @@ const avisosIniciais: NotificacaoSino[] = [
     id: "2",
     title: "Aula alterada",
     message: "A aula de Bases de Dados de quinta passa para a sala B2.04.",
-    type: "aviso",
+    type: "warning",
     read: false,
     createdAt: "2026-10-14T17:05:00",
   },
@@ -67,7 +67,7 @@ export function ExemploPortal({ children }: { children: React.ReactNode }) {
         <CabecalhoPortal
           titulo="Início"
           nome="Ana Exemplo"
-          perfil="aluno"
+          perfil="Aluno"
           acoes={
             <SinoNotificacoes
               notificacoes={avisos}
@@ -79,7 +79,7 @@ export function ExemploPortal({ children }: { children: React.ReactNode }) {
             />
           }
         />
-        <div className="mx-auto w-full max-w-[1100px] space-y-6 p-4 sm:p-8">
+        <div className="mx-auto w-full max-w-6xl space-y-6 p-4 sm:p-8">
           <CabecalhoPagina
             titulo="Início"
             descricao="Exemplo do portal: menu lateral, cabeçalho e sino. Ctrl+B abre e fecha o menu."

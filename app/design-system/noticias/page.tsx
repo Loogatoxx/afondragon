@@ -3,35 +3,35 @@ import Link from "next/link";
 import { PenLine } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { CabecalhoPagina } from "@/components/comuns/cabecalho-pagina";
-import { EstadoVazio } from "@/components/comuns/estado-vazio";
-import { CartaoArtigo } from "@/components/comuns/noticias/cartao-artigo";
-import { CarrosselNoticias } from "@/components/comuns/noticias/carrossel-noticias";
-import { ARTIGOS, lerPerfil } from "./dados";
+import { CabecalhoPagina } from "@/components/common/cabecalho-pagina";
+import { EstadoVazio } from "@/components/common/estado-vazio";
+import { CartaoArtigo } from "@/components/common/news/cartao-artigo";
+import { CarrosselNoticias } from "@/components/common/news/carrossel-noticias";
+import { ARTIGOS, readRole } from "./dados";
 import { SeletorPerfil } from "./seletor-perfil";
 
 export const metadata: Metadata = {
   title: "Notícias (exemplo) — Design System",
 };
 
-/** EXEMPLO da newsletter: destaques em carrossel e lista de artigos. */
-export default async function Noticias(props: PageProps<"/design-system/newsletter">) {
-  const perfil = lerPerfil((await props.searchParams).perfil);
+/** EXAMPLE of the news page: featured carousel and article list. */
+export default async function Noticias(props: PageProps<"/design-system/noticias">) {
+  const perfil = readRole((await props.searchParams).perfil);
   const destaques = ARTIGOS.filter((a) => a.destaque);
   const recentes = [...ARTIGOS].sort((a, b) => b.data.localeCompare(a.data));
-  const sufixo = perfil === "editor" ? "?perfil=editor" : "";
+  const sufixo = perfil === "staff" ? "?perfil=staff" : "";
 
   return (
-    <main className="mx-auto w-full max-w-[1100px] space-y-8 p-4 sm:p-8">
-      <SeletorPerfil perfil={perfil} caminho="/design-system/newsletter" />
+    <main className="mx-auto w-full max-w-6xl space-y-8 p-4 sm:p-8">
+      <SeletorPerfil perfil={perfil} caminho="/design-system/noticias" />
 
       <CabecalhoPagina
         titulo="Notícias"
         descricao="O que se passa no campus."
         acoes={
-          perfil === "editor" && (
+          perfil === "staff" && (
             <Button asChild>
-              <Link href="/design-system/newsletter/publicar?perfil=editor">
+              <Link href="/design-system/noticias/publicar?perfil=staff">
                 <PenLine aria-hidden="true" />
                 Publicar artigo
               </Link>
@@ -43,7 +43,7 @@ export default async function Noticias(props: PageProps<"/design-system/newslett
       <CarrosselNoticias
         itens={destaques.map((artigo) => ({
           artigo,
-          href: `/design-system/newsletter/${artigo.slug}${sufixo}`,
+          href: `/design-system/noticias/${artigo.slug}${sufixo}`,
         }))}
       />
 
@@ -59,7 +59,7 @@ export default async function Noticias(props: PageProps<"/design-system/newslett
               <CartaoArtigo
                 key={artigo.slug}
                 artigo={artigo}
-                href={`/design-system/newsletter/${artigo.slug}${sufixo}`}
+                href={`/design-system/noticias/${artigo.slug}${sufixo}`}
               />
             ))}
           </div>

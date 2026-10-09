@@ -22,29 +22,29 @@ import {
 
 type Icone = React.ComponentType<{ className?: string }>
 
-/** Um item do menu. Compatível com o tipo Modulo da frente Contratos (id, name, route). */
+/** A menu item. Compatible with PortalModule from lib/modules (id, name, route). */
 export type ItemMenu = {
   id: string
   name: string
   route: string
-  /** Número opcional ao lado do item (ex.: pedidos pendentes) */
+  /** Optional count next to the item (e.g. pending requests) */
   contador?: number
 }
 
 type MenuLateralProps = {
-  /** Os módulos que a pessoa pode ver, já filtrados pelo perfil (ex.: modulosDe(perfil)) */
+  /** Modules the person can see, already filtered by role (e.g. modulesForRole(role)) */
   itens: ItemMenu[]
-  /** Ícone de cada módulo, pelo id. Os que faltarem usam um ícone genérico. */
+  /** Icon for each module, keyed by id. Missing ones get a generic icon. */
   icones?: Record<string, Icone>
-  /** Nome curto mostrado no topo do menu */
+  /** Short name shown at the top of the menu */
   marca?: string
-  /** Função de sair; se faltar, o botão "Sair" não aparece */
+  /** Sign-out handler; without it the "Sair" button is hidden */
   onSair?: () => void
 }
 
 /**
- * Menu lateral do portal. Só desenha: quem decide os itens é o registo de
- * módulos da frente Contratos. Tem de estar dentro de um <SidebarProvider>.
+ * Portal side menu. Presentation only: the items come from the module
+ * registry (lib/modules, G3). Must be rendered inside a <SidebarProvider>.
  */
 export function MenuLateral({ itens, icones = {}, marca = "UniPortal", onSair }: MenuLateralProps) {
   const rotaAtual = usePathname()
@@ -53,10 +53,10 @@ export function MenuLateral({ itens, icones = {}, marca = "UniPortal", onSair }:
     <Sidebar collapsible="icon">
       <SidebarHeader>
         <div className="flex h-12 items-center gap-2 px-2">
-          {/* Logótipo: trocar aqui ao mudar de universidade */}
+          {/* Logo: replace here when rebranding for another university */}
           <span
             aria-hidden="true"
-            className="bg-marca text-marca-foreground font-heading flex size-8 shrink-0 items-center justify-center rounded-md font-bold"
+            className="bg-brand text-brand-foreground font-heading flex size-8 shrink-0 items-center justify-center rounded-md font-bold"
           >
             {marca.charAt(0)}
           </span>

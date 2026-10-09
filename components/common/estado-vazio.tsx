@@ -14,14 +14,14 @@ import { cn } from "@/lib/utils"
 type EstadoVazioProps = {
   titulo?: string
   descricao?: string
-  /** Ícone do lucide-react; por defeito, uma caixa vazia */
+  /** lucide-react icon; defaults to an empty inbox */
   icone?: React.ComponentType<{ className?: string }>
-  /** Ação sugerida, ex.: <Button>Criar o primeiro</Button> */
+  /** Suggested action, e.g. <Button>Criar o primeiro</Button> */
   acao?: React.ReactNode
   className?: string
 }
 
-/** Mostrar quando uma lista ou tabela não tem dados. Feito sobre o Empty do shadcn. */
+/** Show when a list or table has no data. Built on the shadcn Empty. */
 export function EstadoVazio({
   titulo = "Ainda não há nada aqui",
   descricao,

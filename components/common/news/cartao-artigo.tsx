@@ -8,12 +8,12 @@ import { formatarData, semOtimizar, type Artigo } from "./tipos"
 
 type CartaoArtigoProps = {
   artigo: Artigo
-  /** Para onde vai o clique; se faltar, o cartão não é clicável (ex.: pré-visualização) */
+  /** Click target; without it the card is not clickable (e.g. a preview) */
   href?: string
   className?: string
 }
 
-/** Cartão de um artigo numa lista de notícias. O cartão inteiro é clicável. */
+/** Article card for a news list. The whole card is clickable. */
 export function CartaoArtigo({ artigo, href, className }: CartaoArtigoProps) {
   return (
     <Card
@@ -43,7 +43,7 @@ export function CartaoArtigo({ artigo, href, className }: CartaoArtigoProps) {
         </div>
         <h3 className="text-xl leading-snug font-semibold">
           {href ? (
-            // O ::after estica a ligação por cima do cartão todo
+            // The ::after stretches the link over the whole card
             <Link
               href={href}
               className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"

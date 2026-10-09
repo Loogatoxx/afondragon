@@ -1,7 +1,7 @@
-import type { Artigo } from "@/components/comuns/noticias/tipos";
+import type { Artigo } from "@/components/common/news/tipos";
 
-// ARTIGOS DE EXEMPLO, todos inventados. No projeto verdadeiro vêm da base de dados.
-const IMG = "/design-system/newsletter";
+// EXAMPLE ARTICLES, all made up. In the real module they come from the database.
+const IMG = "/design-system/noticias";
 
 export const ARTIGOS: Artigo[] = [
   {
@@ -83,9 +83,15 @@ export function artigoPorSlug(slug: string) {
   return ARTIGOS.find((a) => a.slug === slug);
 }
 
-/** Perfil simulado pelo endereço (?perfil=editor). No projeto verdadeiro usa-se exigirPerfil(). */
-export type PerfilExemplo = "aluno" | "editor";
+/**
+ * Role simulated through the URL (?perfil=staff). Uses the project roles
+ * (student | teacher | staff | admin). The real page calls requireRole() from lib/auth.
+ */
+export type ExampleRole = "student" | "staff";
 
-export function lerPerfil(valor: string | string[] | undefined): PerfilExemplo {
-  return valor === "editor" ? "editor" : "aluno";
+/** Roles allowed to publish articles (to confirm with the module owner). */
+export const PUBLISHER_ROLES: ExampleRole[] = ["staff"];
+
+export function readRole(value: string | string[] | undefined): ExampleRole {
+  return value === "staff" ? "staff" : "student";
 }

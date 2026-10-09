@@ -5,20 +5,20 @@ import { SidebarTrigger } from "@/components/ui/sidebar"
 import { cn } from "@/lib/utils"
 
 type CabecalhoPortalProps = {
-  /** Nome da secção atual (ex.: "Aulas") */
+  /** Current section name (e.g. "Aulas") */
   titulo?: string
-  /** Nome da pessoa com sessão iniciada */
+  /** Signed-in person's name */
   nome?: string
-  /** Perfil da pessoa (ex.: "aluno") */
+  /** Role label shown to the user, in Portuguese (e.g. "Aluno" for student) */
   perfil?: string
-  /** Coisas à direita: normalmente o <SinoNotificacoes /> */
+  /** Right-hand slot: usually <SinoNotificacoes /> */
   acoes?: React.ReactNode
   className?: string
 }
 
 /**
- * Barra de topo do portal: botão do menu, secção atual, sino e pessoa.
- * Tem de estar dentro de um <SidebarProvider>.
+ * Portal top bar: menu button, current section, bell and person.
+ * Must be rendered inside a <SidebarProvider>.
  */
 export function CabecalhoPortal({ titulo, nome, perfil, acoes, className }: CabecalhoPortalProps) {
   const iniciais = nome

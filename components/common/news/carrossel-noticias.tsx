@@ -17,16 +17,16 @@ import { cn } from "@/lib/utils"
 import { formatarData, semOtimizar, type Artigo } from "./tipos"
 
 type CarrosselNoticiasProps = {
-  /** Cada artigo com a ligação para a sua página */
+  /** Each article with the link to its page */
   itens: { artigo: Artigo; href: string }[]
-  /** Título lido pelos leitores de ecrã */
+  /** Label read by screen readers */
   rotulo?: string
 }
 
 /**
- * Carrossel de notícias em destaque. Cada imagem é clicável e abre o artigo.
- * Muda com as setas, com os pontos, com as teclas ← → ou arrastando.
- * Não avança sozinho (quem lê devagar não perde a notícia).
+ * Featured news carousel. Each slide is clickable and opens the article.
+ * Moves with the arrow buttons, the dots, the ← → keys or by dragging.
+ * It never autoplays (slow readers must not lose the story).
  */
 export function CarrosselNoticias({
   itens,
@@ -59,7 +59,7 @@ export function CarrosselNoticias({
                 href={href}
                 tabIndex={i === atual ? 0 : -1}
                 aria-hidden={i === atual ? undefined : true}
-                className="bg-muted relative block aspect-[16/9] overflow-hidden rounded-xl sm:aspect-[21/9]"
+                className="bg-muted relative block aspect-video overflow-hidden rounded-xl sm:aspect-auto sm:h-96"
               >
                 <Image
                   src={artigo.imagem.src}
@@ -70,21 +70,21 @@ export function CarrosselNoticias({
                   unoptimized={semOtimizar(artigo.imagem.src)}
                   className="object-cover"
                 />
-                {/* Faixa escura por baixo do texto, para garantir contraste sobre qualquer imagem */}
-                <div className="bg-sobreposicao/80 absolute inset-x-0 bottom-0 space-y-1 p-4 sm:p-6">
+                {/* Dark band behind the text guarantees contrast over any image */}
+                <div className="bg-overlay/80 absolute inset-x-0 bottom-0 space-y-1 p-4 sm:p-6">
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge>{artigo.categoria}</Badge>
                     <time
                       dateTime={artigo.data}
-                      className="text-invertido-foreground text-xs sm:text-sm"
+                      className="text-inverted-foreground text-xs sm:text-sm"
                     >
                       {formatarData(artigo.data)}
                     </time>
                   </div>
-                  <p className="font-heading text-invertido-foreground text-lg leading-tight font-semibold sm:text-2xl">
+                  <p className="font-heading text-inverted-foreground text-lg leading-tight font-semibold sm:text-2xl">
                     {artigo.titulo}
                   </p>
-                  <p className="text-invertido-foreground hidden max-w-2xl text-sm sm:line-clamp-2">
+                  <p className="text-inverted-foreground hidden max-w-2xl text-sm sm:line-clamp-2">
                     {artigo.resumo}
                   </p>
                 </div>
@@ -92,7 +92,7 @@ export function CarrosselNoticias({
             </CarouselItem>
           ))}
         </CarouselContent>
-        {/* Setas por dentro da imagem, para caberem no telemóvel */}
+        {/* Arrows inside the image so they fit on mobile */}
         <CarouselPrevious className="top-1/3 left-3 sm:top-1/2" />
         <CarouselNext className="top-1/3 right-3 sm:top-1/2" />
       </Carousel>

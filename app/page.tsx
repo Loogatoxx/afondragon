@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { CabecalhoPagina } from "@/components/comuns/cabecalho-pagina";
+import { CabecalhoPagina } from "@/components/common/cabecalho-pagina";
 
 export default function Inicio() {
   return (

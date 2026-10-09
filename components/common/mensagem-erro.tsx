@@ -7,14 +7,14 @@ import { cn } from "@/lib/utils"
 type MensagemErroProps = {
   titulo?: string
   mensagem?: string
-  /** Ex.: <Button variant="outline" onClick={recarregar}>Tentar novamente</Button> */
+  /** E.g. <Button variant="outline" onClick={reload}>Tentar novamente</Button> */
   acao?: React.ReactNode
   className?: string
 }
 
 /**
- * Mostrar quando um pedido falha. Explicar o que aconteceu e o que fazer.
- * Feito sobre o Alert do shadcn, numa versão suave para não assustar.
+ * Show when a request fails. Say what happened and what to do next.
+ * Built on the shadcn Alert, in a soft variant so it does not alarm.
  */
 export function MensagemErro({
   titulo = "Ocorreu um erro",

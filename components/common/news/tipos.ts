@@ -1,20 +1,20 @@
-/** Um artigo da newsletter. Os nomes finais dos campos ficam para quem fizer a tabela na base de dados. */
+/** A news article. Final field names are up to whoever creates the database table. */
 export type Artigo = {
   slug: string
   titulo: string
   resumo: string
-  /** Parágrafos do texto */
+  /** Body paragraphs */
   corpo: string[]
   categoria: string
-  /** Data de publicação em ISO, ex.: "2026-10-12" */
+  /** Publication date in ISO format, e.g. "2026-10-12" */
   data: string
   autor: string
   imagem: {
     src: string
-    /** Texto alternativo: descreve a imagem para quem não a vê. Obrigatório. */
+    /** Alt text describing the image for people who cannot see it. Required. */
     alt: string
   }
-  /** Aparece no carrossel de destaques */
+  /** Shown in the featured carousel */
   destaque?: boolean
 }
 
@@ -26,7 +26,7 @@ export function formatarData(iso: string) {
   })
 }
 
-/** SVG e pré-visualizações locais (blob:) não passam pelo otimizador de imagens. */
+/** SVGs and local previews (blob:) skip the image optimizer. */
 export function semOtimizar(src: string) {
   return src.endsWith(".svg") || src.startsWith("blob:")
 }

@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
-import { CartaoArtigo } from "@/components/comuns/noticias/cartao-artigo";
-import type { Artigo } from "@/components/comuns/noticias/tipos";
+import { CartaoArtigo } from "@/components/common/news/cartao-artigo";
+import type { Artigo } from "@/components/common/news/tipos";
 import { CATEGORIAS } from "../dados";
 
 type Erros = Partial<Record<"titulo" | "resumo" | "corpo" | "categoria" | "imagem" | "alt", string>>;
@@ -28,8 +28,8 @@ const TIPOS_IMAGEM = ["image/jpeg", "image/png", "image/webp"];
 const MAX_MB = 5;
 
 /**
- * EXEMPLO do formulário de publicação. Valida e mostra a pré-visualização,
- * mas NÃO grava nada: guardar o artigo e a imagem é trabalho do módulo.
+ * EXAMPLE of the publishing form. Validates and shows a live preview,
+ * but saves NOTHING: storing the article and the image is the module's job.
  */
 export function FormularioArtigo() {
   const id = useId();
@@ -44,7 +44,7 @@ export function FormularioArtigo() {
   const [aPublicar, setAPublicar] = useState(false);
   const [publicado, setPublicado] = useState(false);
 
-  // Liberta a memória da pré-visualização quando a imagem muda.
+  // Free the preview object URL when the image changes.
   useEffect(() => () => void (imagem && URL.revokeObjectURL(imagem)), [imagem]);
 
   function escolherImagem(e: React.ChangeEvent<HTMLInputElement>) {
@@ -80,13 +80,13 @@ export function FormularioArtigo() {
     const e = validar();
     setErros(e);
     if (Object.keys(e).length > 0) {
-      // Leva o foco para o primeiro campo com erro.
+      // Move focus to the first invalid field.
       const primeiro = Object.keys(e)[0];
       document.getElementById(`${id}-${primeiro}`)?.focus();
       return;
     }
     setAPublicar(true);
-    await new Promise((r) => setTimeout(r, 1000)); // simulação do pedido ao servidor
+    await new Promise((r) => setTimeout(r, 1000)); // simulated server request
     setAPublicar(false);
     setPublicado(true);
   }
@@ -103,7 +103,7 @@ export function FormularioArtigo() {
     destaque,
   };
 
-  // Ao corrigir um campo, o aviso de erro desse campo desaparece.
+  // Editing a field clears that field's error.
   const limpar = (nome: keyof Erros) => setErros((x) => (x[nome] ? { ...x, [nome]: undefined } : x));
 
   const campo = (nome: keyof Erros) => ({
@@ -119,14 +119,14 @@ export function FormularioArtigo() {
     );
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_22rem]">
+    <div className="grid gap-8 lg:grid-cols-3">
       <form
         onSubmit={publicar}
         noValidate
-        className="bg-card space-y-6 rounded-xl p-5 shadow-sm sm:p-8"
+        className="bg-card space-y-6 rounded-xl p-5 shadow-sm sm:p-8 lg:col-span-2"
       >
         {publicado && (
-          <Alert variant="sucesso">
+          <Alert variant="success">
             <CircleCheck aria-hidden="true" />
             <AlertTitle>Artigo publicado</AlertTitle>
             <AlertDescription>
@@ -263,7 +263,7 @@ export function FormularioArtigo() {
       </form>
 
       <aside aria-labelledby={`${id}-previsao`} className="space-y-3 lg:sticky lg:top-6 lg:self-start">
-        <Card className="bg-painel gap-4 py-4">
+        <Card className="bg-panel gap-4 py-4">
           <CardHeader className="px-4">
             <CardTitle id={`${id}-previsao`} className="text-base">
               Pré-visualização

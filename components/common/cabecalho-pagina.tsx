@@ -6,12 +6,12 @@ import { cn } from "@/lib/utils"
 type CabecalhoPaginaProps = {
   titulo: string
   descricao?: string
-  /** Botões ou links à direita do título (ex.: "Novo contrato") */
+  /** Buttons or links to the right of the title (e.g. "Novo contrato") */
   acoes?: React.ReactNode
   className?: string
 }
 
-/** Título de topo de cada página. Usar um por ecrã. */
+/** Page title block. Use one per screen. */
 export function CabecalhoPagina({
   titulo,
   descricao,

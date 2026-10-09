@@ -3,140 +3,141 @@
 
 /*
  * ============================================================
- *  TOKENS DO DESIGN SYSTEM (G4/G5)
- *  Origem: site_teste_revisado_sem_mudar_cores/.../styles.css
+ *  DESIGN SYSTEM TOKENS (G4/G5)
+ *  Source: the group's design token file (styles.css)
  *
- *  - As cores, fontes e raios só se mudam AQUI.
- *  - Nos componentes usam-se sempre as classes temáticas
+ *  - Colours, fonts and radii are changed HERE only.
+ *  - Components always use theme classes
  *    (bg-primary, text-muted-foreground, border-border, ...).
- *  - NUNCA usar cores soltas (bg-blue-600, #1e3a8a, style={{...}}).
+ *  - NEVER use raw colours (bg-blue-600, #1e3a8a, style={{...}}).
+ *  - Rebranding for another university = change this file and the logo.
  * ============================================================
  */
 
 :root {
-  /* ---------- 1. Paleta do grupo (valores originais, não alterar) ---------- */
-  /* Prefixo --paleta- em vez de --color- para não chocar com os nomes do Tailwind. */
+  /* ---------- 1. Group palette (original values, do not change) ---------- */
+  /* Prefixed --palette- instead of --color- to avoid clashing with Tailwind names. */
 
-  /* Primária — Verde */
-  --paleta-primary: #74B816;
-  --paleta-primary-dark: #416800;
-  --paleta-primary-hover: #619D0D;
-  --paleta-primary-light: #D5F5A6;
+  /* Primary — green */
+  --palette-primary: #74B816;
+  --palette-primary-dark: #416800;
+  --palette-primary-hover: #619D0D;
+  --palette-primary-light: #D5F5A6;
 
-  /* Secundária — Navy / Slate */
-  --paleta-secondary: #182230;
-  --paleta-secondary-dark: #0B111B;
-  --paleta-secondary-light: #566171;
+  /* Secondary — navy / slate */
+  --palette-secondary: #182230;
+  --palette-secondary-dark: #0B111B;
+  --palette-secondary-light: #566171;
 
-  /* Terciária — Azul */
-  --paleta-tertiary: #0284C7;
-  --paleta-tertiary-dark: #0369A1;
-  --paleta-tertiary-light: #51B1F0;
+  /* Tertiary — blue */
+  --palette-tertiary: #0284C7;
+  --palette-tertiary-dark: #0369A1;
+  --palette-tertiary-light: #51B1F0;
 
-  /* Neutras */
-  --paleta-neutral: #F4F6F8;
-  --paleta-white: #FFFFFF;
-  --paleta-black: #000000;
-  --paleta-background: #D9DADB;
-  --paleta-surface: #ECEDEF;
-  --paleta-border: #D1D5DB;
+  /* Neutrals */
+  --palette-neutral: #F4F6F8;
+  --palette-white: #FFFFFF;
+  --palette-black: #000000;
+  --palette-background: #D9DADB;
+  --palette-surface: #ECEDEF;
+  --palette-border: #D1D5DB;
 
-  /* Texto */
-  --paleta-text: #182230;
-  --paleta-text-heading: #17191C;
-  --paleta-text-body: #414838;
-  --paleta-text-muted: #858A80;
-  --paleta-text-inverted: #FFFFFF;
+  /* Text */
+  --palette-text: #182230;
+  --palette-text-heading: #17191C;
+  --palette-text-body: #414838;
+  --palette-text-muted: #858A80;
+  --palette-text-inverted: #FFFFFF;
 
-  /* Semânticas */
-  --paleta-success: #267647;
-  --paleta-warning: #E6A23C;
-  --paleta-error: #C91F26;
-  --paleta-info: #0284C7;
+  /* Semantic */
+  --palette-success: #267647;
+  --palette-warning: #E6A23C;
+  --palette-error: #C91F26;
+  --palette-info: #0284C7;
 
-  /* Cores específicas de componentes */
+  /* Component-specific colours */
   --button-secondary-bg: #E5E7E9;
   --button-inverted-bg: #292D30;
   --input-border: #C5CCB6;
   --nav-bg: #E5E6E8;
 
-  /* ---------- 2. Papéis usados pelos componentes (shadcn/ui) ---------- */
-  /* Cada papel aponta para uma cor da paleta acima. */
+  /* ---------- 2. Roles used by the components (shadcn/ui) ---------- */
+  /* Each role points to a palette colour above. */
 
-  --background: var(--paleta-background);
-  --foreground: var(--paleta-text-body);
-  --heading: var(--paleta-text-heading);
+  --background: var(--palette-background);
+  --foreground: var(--palette-text-body);
+  --heading: var(--palette-text-heading);
 
-  --card: var(--paleta-surface);
-  --card-foreground: var(--paleta-text-body);
-  --popover: var(--paleta-white);
-  --popover-foreground: var(--paleta-text);
-  --painel: var(--paleta-neutral);
+  --card: var(--palette-surface);
+  --card-foreground: var(--palette-text-body);
+  --popover: var(--palette-white);
+  --popover-foreground: var(--palette-text);
+  --panel: var(--palette-neutral);
 
-  /* Botão principal: verde-escuro (o verde claro #74B816 com texto branco não tem contraste) */
-  --primary: var(--paleta-primary-dark);
-  --primary-foreground: var(--paleta-white);
+  /* Primary button: dark green (light green #74B816 with white text lacks contrast) */
+  --primary: var(--palette-primary-dark);
+  --primary-foreground: var(--palette-white);
 
-  /* Verde da marca: etiquetas, destaques */
-  --marca: var(--paleta-primary);
-  --marca-foreground: var(--paleta-text-heading);
-  --marca-claro: var(--paleta-primary-light);
+  /* Brand green: badges, highlights */
+  --brand: var(--palette-primary);
+  --brand-foreground: var(--palette-text-heading);
+  --brand-light: var(--palette-primary-light);
 
   --secondary: var(--button-secondary-bg);
-  --secondary-foreground: var(--paleta-text-body);
-  --invertido: var(--button-inverted-bg);
-  --invertido-foreground: var(--paleta-white);
+  --secondary-foreground: var(--palette-text-body);
+  --inverted: var(--button-inverted-bg);
+  --inverted-foreground: var(--palette-white);
 
-  --muted: var(--paleta-neutral);
-  /* #566171 em vez de #858A80: o cinzento original só tem 3:1 de contraste */
-  --muted-foreground: var(--paleta-secondary-light);
+  --muted: var(--palette-neutral);
+  /* #566171 instead of #858A80: the original grey only reaches 3:1 contrast */
+  --muted-foreground: var(--palette-secondary-light);
   --accent: var(--nav-bg);
-  --accent-foreground: var(--paleta-text);
+  --accent-foreground: var(--palette-text);
 
-  /* Estados */
-  --destructive: var(--paleta-error);
-  --destructive-foreground: var(--paleta-white);
-  --sucesso: var(--paleta-success);
-  --sucesso-foreground: var(--paleta-white);
-  --aviso: var(--paleta-warning);
-  --aviso-foreground: var(--paleta-black);
-  /* Fundo de info: azul-escuro (#0284C7 com texto branco fica abaixo de 4.5:1) */
-  --info: var(--paleta-tertiary-dark);
-  --info-foreground: var(--paleta-white);
+  /* States */
+  --destructive: var(--palette-error);
+  --destructive-foreground: var(--palette-white);
+  --success: var(--palette-success);
+  --success-foreground: var(--palette-white);
+  --warning: var(--palette-warning);
+  --warning-foreground: var(--palette-black);
+  /* Info background: dark blue (#0284C7 with white text is below 4.5:1) */
+  --info: var(--palette-tertiary-dark);
+  --info-foreground: var(--palette-white);
 
-  /* Fundo escurecido atrás de diálogos e painéis laterais */
-  --sobreposicao: var(--paleta-secondary-dark);
+  /* Dimmed backdrop behind dialogs and sheets */
+  --overlay: var(--palette-secondary-dark);
 
-  /* Linhas, campos e foco */
-  --border: var(--paleta-border);
-  /* Borda dos campos: #858A80 (o #C5CCB6 original quase não se vê sobre a superfície) */
-  --input: var(--paleta-text-muted);
-  --campo: var(--paleta-surface);
-  --ring: var(--paleta-tertiary);
+  /* Lines, fields and focus */
+  --border: var(--palette-border);
+  /* Field border: #858A80 (the original #C5CCB6 is barely visible on the surface) */
+  --input: var(--palette-text-muted);
+  --field: var(--palette-surface);
+  --ring: var(--palette-tertiary);
 
-  /* Menu lateral (usado pelo grupo de Contratos) */
+  /* Side menu (used by the portal layout) */
   --sidebar: var(--nav-bg);
-  --sidebar-foreground: var(--paleta-text-body);
-  --sidebar-primary: var(--paleta-primary-dark);
-  --sidebar-primary-foreground: var(--paleta-white);
+  --sidebar-foreground: var(--palette-text-body);
+  --sidebar-primary: var(--palette-primary-dark);
+  --sidebar-primary-foreground: var(--palette-white);
   --sidebar-accent: var(--button-secondary-bg);
-  --sidebar-accent-foreground: var(--paleta-text);
-  --sidebar-border: var(--paleta-border);
-  --sidebar-ring: var(--paleta-tertiary);
+  --sidebar-accent-foreground: var(--palette-text);
+  --sidebar-border: var(--palette-border);
+  --sidebar-ring: var(--palette-tertiary);
 }
 
-/* Liga as variáveis acima às classes do Tailwind (bg-primary, text-sucesso, ...) */
+/* Maps the variables above to Tailwind classes (bg-primary, text-success, ...) */
 @theme inline {
   --font-sans: var(--font-public-sans), sans-serif;
   --font-heading: var(--font-plus-jakarta), sans-serif;
 
-  /* Raios do ficheiro do grupo */
+  /* Radii from the group's token file */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
 
-  /* Sombras do ficheiro do grupo */
+  /* Shadows from the group's token file */
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 5%);
   --shadow-md: 0 4px 12px rgb(0 0 0 / 8%);
   --shadow-lg: 0 8px 24px rgb(0 0 0 / 10%);
@@ -148,32 +149,32 @@
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-  --color-painel: var(--painel);
+  --color-panel: var(--panel);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-marca: var(--marca);
-  --color-marca-foreground: var(--marca-foreground);
-  --color-marca-claro: var(--marca-claro);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-light: var(--brand-light);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-invertido: var(--invertido);
-  --color-invertido-foreground: var(--invertido-foreground);
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  --color-sucesso: var(--sucesso);
-  --color-sucesso-foreground: var(--sucesso-foreground);
-  --color-aviso: var(--aviso);
-  --color-aviso-foreground: var(--aviso-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
   --color-info: var(--info);
   --color-info-foreground: var(--info-foreground);
-  --color-sobreposicao: var(--sobreposicao);
+  --color-overlay: var(--overlay);
   --color-border: var(--border);
   --color-input: var(--input);
-  --color-campo: var(--campo);
+  --color-field: var(--field);
   --color-ring: var(--ring);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
@@ -201,7 +202,7 @@
   h4 {
     @apply font-heading text-heading leading-tight;
   }
-  /* Foco visível igual ao do ficheiro do grupo: contorno azul de 3px */
+  /* Visible focus as in the group's token file: 3px blue outline */
   :focus-visible {
     outline: 3px solid var(--ring);
     outline-offset: 2px;

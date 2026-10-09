@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 };
 
 /**
- * Ecrã de EXEMPLO do portal (menu lateral, cabeçalho e sino).
- * O layout verdadeiro é app/(portal)/layout.tsx, ligado pelas frentes
- * Dados e login e Contratos do núcleo.
+ * EXAMPLE portal screen (side menu, header and bell).
+ * The real layout is app/(portal)/layout.tsx, wired up by the
+ * Dados e login (G1) and Contratos (G3) teams.
  */
 export default function ExemploMenu() {
   return (

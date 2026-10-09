@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 
-/** Exemplo de Select com Label (acessível por teclado: setas + Enter). */
+/** Select example with a Label (keyboard accessible: arrows + Enter). */
 export function ExemploSelect() {
   const [estado, setEstado] = useState<string>();
 
@@ -53,7 +53,7 @@ export function ExemploSelect() {
   );
 }
 
-/** Exemplo de Dialog de confirmação (fecha com Esc, foco fica preso lá dentro). */
+/** Confirmation Dialog example (closes with Esc, focus stays trapped inside). */
 export function ExemploDialog() {
   return (
     <div className="flex flex-wrap gap-3">

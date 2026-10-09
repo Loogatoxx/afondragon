@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils"
 
 type ACarregarProps = {
   texto?: string
-  /** "spinner" (por defeito) ou "linhas" para listas e tabelas */
+  /** "spinner" (default) or "linhas" (skeleton rows) for lists and tables */
   variante?: "spinner" | "linhas"
-  /** Número de linhas na variante "linhas" */
+  /** Number of rows in the "linhas" variant */
   linhas?: number
   className?: string
 }
 
-/** Mostrar enquanto os dados estão a ser pedidos ao servidor. */
+/** Show while data is being requested from the server. */
 export function ACarregar({
   texto = "A carregar…",
   variante = "spinner",

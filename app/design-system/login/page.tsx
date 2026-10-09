@@ -10,15 +10,15 @@ export const metadata: Metadata = {
 };
 
 /**
- * Ecrã de login de EXEMPLO. A página verdadeira (/login) é da frente
- * Dados e login: copiam este layout e ligam-no ao Supabase.
+ * EXAMPLE login screen. The real page (/login) belongs to Dados e login (G1):
+ * they copy this layout and connect it to Supabase.
  */
 export default function ExemploLogin() {
   return (
     <main className="flex min-h-svh flex-col items-center justify-center gap-6 p-4">
       <div className="flex flex-col items-center gap-3 text-center">
         <span
-          className="bg-marca text-marca-foreground font-heading flex size-12 items-center justify-center rounded-lg text-xl font-bold"
+          className="bg-brand text-brand-foreground font-heading flex size-12 items-center justify-center rounded-lg text-xl font-bold"
           aria-hidden="true"
         >
           P

@@ -10,11 +10,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ACarregar } from "@/components/comuns/a-carregar";
-import { EstadoVazio } from "@/components/comuns/estado-vazio";
-import { MensagemErro } from "@/components/comuns/mensagem-erro";
+import { ACarregar } from "@/components/common/a-carregar";
+import { EstadoVazio } from "@/components/common/estado-vazio";
+import { MensagemErro } from "@/components/common/mensagem-erro";
 
-// Dados inventados, só para o exemplo.
+// Made-up data, for the example only.
 const pedidos = [
   { numero: "2026-0142", tipo: "Declaração de matrícula", data: "12/10/2026", estado: "Concluído" },
   { numero: "2026-0157", tipo: "Certificado de notas", data: "13/10/2026", estado: "Pendente" },
@@ -23,13 +23,13 @@ const pedidos = [
 ] as const;
 
 const varianteDoEstado = {
-  Concluído: "sucesso",
-  Pendente: "aviso",
+  Concluído: "success",
+  Pendente: "warning",
   Recusado: "destructive",
   Rascunho: "outline",
 } as const;
 
-/** Um ecrã de lista com os 4 estados: com dados, vazio, a carregar e erro. */
+/** A list screen with the 4 states: with data, empty, loading and error. */
 export function ExemploTabela() {
   return (
     <Tabs defaultValue="dados">

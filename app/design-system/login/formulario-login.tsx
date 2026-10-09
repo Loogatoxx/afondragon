@@ -18,9 +18,9 @@ import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
 
 /**
- * EXEMPLO VISUAL para a frente Dados e login.
- * A lógica (Supabase, sessão, redirecionar) é deles: aqui só se simula
- * o pedido para mostrar os estados "a entrar" e "erro".
+ * VISUAL EXAMPLE for the Dados e login team (G1).
+ * The logic (Supabase, session, redirect) is theirs: this only simulates
+ * the request to show the "signing in" and "error" states.
  */
 export function FormularioLogin() {
   const [aEntrar, setAEntrar] = useState(false);
@@ -30,7 +30,7 @@ export function FormularioLogin() {
     evento.preventDefault();
     setErro(null);
     setAEntrar(true);
-    // Simulação: no projeto real, aqui chama-se o login do Supabase.
+    // Simulated: the real page calls Supabase sign-in here.
     await new Promise((r) => setTimeout(r, 1200));
     setAEntrar(false);
     setErro("Email ou palavra-passe incorretos.");

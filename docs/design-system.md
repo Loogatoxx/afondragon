@@ -8,12 +8,12 @@
 |---|---|
 | Cores, fonte, arredondamento (tokens) | `app/globals.css` |
 | Componentes base (shadcn/ui) | `components/ui/` |
-| Componentes comuns do projeto | `components/comuns/` |
+| Componentes comuns do projeto | `components/common/` |
 | Exemplos ao vivo | rota `/design-system` |
 
 ## Identidade visual
 
-- **Cores:** paleta do grupo (verde `#74B816` / `#416800`, navy `#182230`, azul `#0284C7`). A lista completa está no topo de `app/globals.css` como `--paleta-*`.
+- **Cores:** paleta do grupo (verde `#74B816` / `#416800`, navy `#182230`, azul `#0284C7`). A lista completa está no topo de `app/globals.css` como `--palette-*`.
 - **Fontes:** *Plus Jakarta Sans* nos títulos (`font-heading`), *Public Sans* no texto (`font-sans`).
 - **Raios:** `rounded-sm` 0.25rem (botões, campos), `rounded-md` 0.5rem, `rounded-lg` 1rem (painéis), `rounded-xl` 1.5rem (cards).
 - **Espaçamentos:** os `--space-*` do ficheiro original são iguais à escala do Tailwind (`p-4` = 1rem, `gap-6` = 1.5rem, …).
@@ -24,18 +24,18 @@
 | Classe | Cor | Uso |
 |---|---|---|
 | `bg-primary` / `text-primary-foreground` | `#416800` / branco | Botão principal, item ativo do menu |
-| `bg-marca` | `#74B816` | Etiquetas, destaques (nunca com texto branco) |
-| `bg-marca-claro` | `#D5F5A6` | Fundos suaves de destaque |
+| `bg-brand` | `#74B816` | Etiquetas, destaques (nunca com texto branco) |
+| `bg-brand-light` | `#D5F5A6` | Fundos suaves de destaque |
 | `bg-secondary` | `#E5E7E9` | Botão secundário |
-| `bg-invertido` | `#292D30` | Botão escuro |
+| `bg-inverted` | `#292D30` | Botão escuro |
 | `bg-background` | `#D9DADB` | Fundo da página |
 | `bg-card` | `#ECEDEF` | Cards, superfícies |
-| `bg-painel` | `#F4F6F8` | Painéis / secções |
+| `bg-panel` | `#F4F6F8` | Painéis / secções |
 | `text-foreground` | `#414838` | Texto normal |
 | `text-heading` | `#17191C` | Títulos |
 | `text-muted-foreground` | `#566171` | Texto secundário |
-| `bg-sucesso` | `#267647` | Sucesso |
-| `bg-aviso` | `#E6A23C` (texto preto) | Avisos |
+| `bg-success` | `#267647` | Sucesso |
+| `bg-warning` | `#E6A23C` (texto preto) | Avisos |
 | `bg-destructive` | `#C91F26` | Erros, apagar |
 | `bg-info` | `#0369A1` | Informação |
 | `border-border` / `border-input` | `#D1D5DB` / `#858A80` | Linhas / bordas de campos |
@@ -55,7 +55,7 @@ Testámos o contraste (WCAG AA: 4.5:1 para texto, 3:1 para bordas de campos). Mu
 
 ## Regras obrigatórias
 
-1. **Só se usam componentes de `components/ui` e `components/comuns`.**
+1. **Só se usam componentes de `components/ui` e `components/common`.**
    Não copiar um componente para a pasta do vosso módulo para o alterar. Se falta uma variante, peçam-nos.
 2. **Nada de cores soltas.** ❌ `bg-blue-600`, `text-[#333]`, `style={{ color: "red" }}`
    ✅ `bg-primary`, `text-muted-foreground`, `border-border`, `text-destructive`.
@@ -66,9 +66,9 @@ Testámos o contraste (WCAG AA: 4.5:1 para texto, 3:1 para bordas de campos). Mu
 ## Componentes disponíveis
 
 ### Base (`@/components/ui/...`)
-- `Button` — variantes: `default`, `secondary`, `invertido`, `outline`, `ghost`, `destructive`, `info`, `link`; tamanhos `sm`, `default` (48px), `lg` (56px), `icon` (56px — usar sempre `aria-label`).
-- `Badge` — etiqueta; variantes `default` (verde), `secondary`, `outline`, `sucesso`, `aviso`, `destructive`, `info`.
-- `Alert`, `AlertTitle`, `AlertDescription` — variantes `default`, `sucesso`, `aviso`, `destructive`, `info`.
+- `Button` — variantes: `default`, `secondary`, `inverted`, `outline`, `ghost`, `destructive`, `info`, `link`; tamanhos `sm`, `default` (48px), `lg` (56px), `icon` (56px — usar sempre `aria-label`).
+- `Badge` — etiqueta; variantes `default` (verde), `secondary`, `outline`, `success`, `warning`, `destructive`, `info`.
+- `Alert`, `AlertTitle`, `AlertDescription` — variantes `default`, `success`, `warning`, `destructive`, `info`.
 - `Input`, `Label`
 - `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`
 
@@ -84,7 +84,7 @@ Testámos o contraste (WCAG AA: 4.5:1 para texto, 3:1 para bordas de campos). Mu
 - `Empty` (e partes) — base do `EstadoVazio`; usar o `EstadoVazio` nos ecrãs.
 - `Popover` — painel que abre por cima (usado pelo sino).
 
-### Comuns (`@/components/comuns/...`)
+### Comuns (`@/components/common/...`)
 Feitos por cima dos componentes do shadcn, não de raiz.
 
 - `CabecalhoPagina` — `titulo`, `descricao?`, `acoes?` (usa `Separator`)
@@ -98,22 +98,22 @@ Só desenham: os dados vêm por props, do registo de módulos e de `notificar()`
 
 - `MenuLateral` — `itens: { id, name, route, contador? }[]`, `icones?: Record<id, Icone>`, `marca?`, `onSair?`. O item ativo vem da rota atual.
 - `CabecalhoPortal` — `titulo?`, `nome?`, `perfil?`, `acoes?` (pôr aqui o sino).
-- `SinoNotificacoes` — `notificacoes: { id, title, message, type, read, createdAt, link? }[]`, `onMarcarComoLida?`, `onMarcarTodas?`, `verTodasHref?` (por defeito `/notificacoes`), `maximo?`.
+- `SinoNotificacoes` — `notificacoes: { id, title, message, type, read, createdAt, link? }[]` (`type`: `info` | `success` | `warning` | `error`), `onMarcarComoLida?`, `onMarcarTodas?`, `verTodasHref?` (por defeito `/notificacoes`), `maximo?`.
 
 Os três têm de estar dentro de `<SidebarProvider>` com `<SidebarInset>` à volta do conteúdo:
 
 ```tsx
 <SidebarProvider>
-  <MenuLateral itens={modulosDe(eu.perfil)} icones={ICONES} onSair={sair} />
+  <MenuLateral itens={modulesForRole(me.role)} icones={ICONES} onSair={sair} />
   <SidebarInset>
-    <CabecalhoPortal titulo="Aulas" nome={eu.nome} perfil={eu.perfil}
+    <CabecalhoPortal titulo="Aulas" nome={me.name} perfil={roleLabel}
       acoes={<SinoNotificacoes notificacoes={avisos} />} />
     <main className="p-4 sm:p-8">{children}</main>
   </SidebarInset>
 </SidebarProvider>
 ```
 
-> Os nomes dos campos seguem o rascunho da frente Contratos (`g3/contratos`). Quando os contratos estiverem fechados, revemos estes tipos.
+> Os tipos seguem os contratos da frente Contratos (`g3/rules`): `PortalModule` (`id`, `name`, `route`) e `Notification` (`type`: `info` | `success` | `warning` | `error`). IDs oficiais dos módulos: `portal`, `classes`, `schedule`, `secretariat`, `cafeteria`, `applications`, `complaints`.
 
 ## Ecrã de login (para a frente Dados e login)
 
@@ -161,10 +161,10 @@ Componentes usados: `Card`, `Label`, `Input`, `Button`, `Spinner` e `Alert` (`va
 ## Exemplo de um ecrã
 
 ```tsx
-import { CabecalhoPagina } from "@/components/comuns/cabecalho-pagina"
-import { ACarregar } from "@/components/comuns/a-carregar"
-import { EstadoVazio } from "@/components/comuns/estado-vazio"
-import { MensagemErro } from "@/components/comuns/mensagem-erro"
+import { CabecalhoPagina } from "@/components/common/cabecalho-pagina"
+import { ACarregar } from "@/components/common/a-carregar"
+import { EstadoVazio } from "@/components/common/estado-vazio"
+import { MensagemErro } from "@/components/common/mensagem-erro"
 
 export function ListaContratos({ aCarregar, erro, contratos }) {
   return (
@@ -181,17 +181,17 @@ export function ListaContratos({ aCarregar, erro, contratos }) {
 
 ## Notícias / newsletter (extra, fora das aulas)
 
-Exemplo completo em `/design-system/newsletter` (código em `app/design-system/newsletter/`):
+Exemplo completo em `/design-system/noticias` (código em `app/design-system/noticias/`):
 
-- **Lista** (`/design-system/newsletter`): carrossel de destaques + grelha de cartões.
-- **Artigo** (`/design-system/newsletter/<slug>`): capa, título, autor, data e texto.
-- **Publicar** (`/design-system/newsletter/publicar`): formulário com validação, imagem de capa com descrição obrigatória e pré-visualização ao vivo. Só para quem tem permissão.
+- **Lista** (`/design-system/noticias`): carrossel de destaques + grelha de cartões.
+- **Artigo** (`/design-system/noticias/<slug>`): capa, título, autor, data e texto.
+- **Publicar** (`/design-system/noticias/publicar`): formulário com validação, imagem de capa com descrição obrigatória e pré-visualização ao vivo. Só para quem tem permissão.
 
-A permissão está **simulada** com `?perfil=editor` no endereço. No projeto verdadeiro a página chama `exigirPerfil([...])` (frente Dados e login) e o servidor volta a verificar a permissão ao gravar. O exemplo **não grava nada**: guardar o artigo e a imagem (ex.: Supabase Storage) é trabalho de quem fizer o módulo.
+A permissão está **simulada** com `?perfil=staff` no endereço. No projeto verdadeiro a página chama `requireRole([...])` (frente Dados e login) e o servidor volta a verificar a permissão ao gravar. O exemplo **não grava nada**: guardar o artigo e a imagem (ex.: Supabase Storage) é trabalho de quem fizer o módulo.
 
-As imagens de exemplo (`public/design-system/newsletter/*.svg`) são ilustrações com as cores da paleta; trocar por fotografias reais.
+As imagens de exemplo (`public/design-system/noticias/*.svg`) são ilustrações com as cores da paleta; trocar por fotografias reais.
 
-### Componentes (`@/components/comuns/noticias/...`)
+### Componentes (`@/components/common/news/...`)
 
 - `CarrosselNoticias` — `itens: { artigo, href }[]`, `rotulo?`. Cada diapositivo é clicável. Muda com setas, pontos, teclas ← → ou arrastando. **Não avança sozinho** (quem lê devagar não perde a notícia). O texto fica numa faixa escura, para ter contraste sobre qualquer imagem.
 - `CartaoArtigo` — `artigo`, `href?`. O cartão inteiro é clicável; sem `href` serve de pré-visualização.
@@ -208,7 +208,7 @@ As imagens de exemplo (`public/design-system/newsletter/*.svg`) são ilustraçõ
 
 - Toda a imagem tem `alt` que descreve o que se vê. Imagens decorativas: `alt=""`.
 - Capas em 16:9; o componente corta para caber (`object-cover`).
-- Texto por cima de imagens só com faixa escura por baixo (`bg-sobreposicao/80`).
+- Texto por cima de imagens só com faixa escura por baixo (`bg-overlay/80`).
 
 ## Testes de acessibilidade (Aula 3)
 
@@ -218,8 +218,18 @@ Feitos com o axe-core (regras WCAG 2.1 AA) em `/design-system`, `/design-system/
 - Telemóvel: sem scroll horizontal; o menu abre como painel lateral.
 - Contraste: o texto secundário (`#566171`) tem 4.49:1 sobre o fundo da página (`#D9DADB`), mesmo abaixo de 4.5:1. Por isso **`text-muted-foreground` usa-se só sobre cartões e painéis** (5.0 a 5.8:1); diretamente no fundo usa-se `text-foreground`.
 
+## Regras do projeto que afetam o design system (`AGENTS.md`, frente Contratos)
+
+- Pastas e código em inglês: `components/common/` (antes `components/comuns/`), `components/common/news/`. Comentários no código em inglês; texto visível em português de Portugal.
+- Rotas (URLs) em português: `/design-system/noticias`.
+- Perfis: `student`, `teacher`, `staff`, `admin`. No ecrã mostram-se em português (ex.: «Aluno»).
+- Tokens e variantes em inglês: `success`, `warning`, `inverted`, `brand`, `panel`, `field`, `overlay`.
+- Sem valores arbitrários do Tailwind sempre que haja equivalente na escala; sem `style` inline; sem cores em hexadecimal fora de `globals.css`.
+- Cada página tem `metadata`; `/design-system` tem `loading.tsx` (usa `ACarregar`) e `error.tsx` (usa `MensagemErro`).
+- Commits e títulos de PR em inglês (`type(scope): subject`); descrição do PR em português.
+
 ## Próximos passos (Aula 4)
 
 - Rever os tipos do portal quando a frente Contratos fechar os contratos.
-- Entregar a secção de interface do `AGENTS.md` (rascunho em `docs/agents-secao-interface.md`).
+- Entregar a secção de interface do `AGENTS.md` (rascunho em `docs/agents-interface-section.md`).
 - Demonstração: montar um ecrã de lista ao vivo só com componentes.

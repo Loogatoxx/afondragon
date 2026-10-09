@@ -10,12 +10,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 
-/** Os campos que o sino mostra. Compatível com o tipo Notificacao da frente Contratos. */
+/** Fields the bell displays. A subset of Notification from lib/notifications (G3). */
 export type NotificacaoSino = {
   id: string
   title: string
   message: string
-  type: "info" | "sucesso" | "aviso" | "erro"
+  type: "info" | "success" | "warning" | "error"
   read: boolean
   createdAt: string
   link?: string
@@ -23,21 +23,21 @@ export type NotificacaoSino = {
 
 type SinoNotificacoesProps = {
   notificacoes: NotificacaoSino[]
-  /** Chamado quando a pessoa abre um aviso (para o marcar como lido) */
+  /** Called when the person opens an alert (to mark it as read) */
   onMarcarComoLida?: (id: string) => void
-  /** Chamado no botão "Marcar todas como lidas" */
+  /** Called by the "Marcar todas como lidas" button */
   onMarcarTodas?: () => void
-  /** Página com a lista completa */
+  /** Page with the full list */
   verTodasHref?: string
-  /** Quantos avisos mostrar no painel */
+  /** How many alerts to show in the panel */
   maximo?: number
 }
 
 const corDoTipo: Record<NotificacaoSino["type"], string> = {
   info: "bg-info",
-  sucesso: "bg-sucesso",
-  aviso: "bg-aviso",
-  erro: "bg-destructive",
+  success: "bg-success",
+  warning: "bg-warning",
+  error: "bg-destructive",
 }
 
 function quandoFoi(iso: string) {
@@ -50,7 +50,7 @@ function quandoFoi(iso: string) {
   })
 }
 
-/** Sino do cabeçalho: contador de avisos por ler e lista dos mais recentes. */
+/** Header bell: unread counter and list of the latest alerts. */
 export function SinoNotificacoes({
   notificacoes,
   onMarcarComoLida,
@@ -81,7 +81,7 @@ export function SinoNotificacoes({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent align="end" className="w-[min(22rem,calc(100vw-2rem))] p-0">
+      <PopoverContent align="end" className="w-80 p-0">
         <div className="flex items-center justify-between gap-2 px-4 py-3">
           <p className="font-heading text-heading font-semibold">Notificações</p>
           {porLer > 0 && onMarcarTodas && (
