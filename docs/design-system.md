@@ -79,12 +79,41 @@ Testámos o contraste (WCAG AA: 4.5:1 para texto, 3:1 para bordas de campos). Mu
   - Item ativo: `isActive` (verde-escuro com texto branco, como no ficheiro do grupo).
 - Peças usadas pela sidebar, também disponíveis: `Separator`, `Sheet`, `Tooltip`, `Skeleton`.
 - `Spinner` — ícone a rodar, para botões "A guardar…" / "A entrar…".
+- `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell`, `TableCaption` — listas de registos. Exemplo completo (com os 4 estados) em `/design-system`, secção «Dados».
+- `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` — separadores; mudam com as setas do teclado.
+- `Empty` (e partes) — base do `EstadoVazio`; usar o `EstadoVazio` nos ecrãs.
+- `Popover` — painel que abre por cima (usado pelo sino).
 
 ### Comuns (`@/components/comuns/...`)
-- `CabecalhoPagina` — `titulo`, `descricao?`, `acoes?`
-- `EstadoVazio` — `titulo?`, `descricao?`, `acao?`
-- `ACarregar` — `texto?`
-- `MensagemErro` — `titulo?`, `mensagem?`, `acao?`
+Feitos por cima dos componentes do shadcn, não de raiz.
+
+- `CabecalhoPagina` — `titulo`, `descricao?`, `acoes?` (usa `Separator`)
+- `EstadoVazio` — `titulo?`, `descricao?`, `icone?`, `acao?` (usa `Empty`)
+- `ACarregar` — `texto?`, `variante?: "spinner" | "linhas"`, `linhas?` (usa `Spinner` e `Skeleton`)
+- `MensagemErro` — `titulo?`, `mensagem?`, `acao?` (usa `Alert`)
+
+#### Portal (com a frente Contratos do núcleo)
+
+Só desenham: os dados vêm por props, do registo de módulos e de `notificar()`. Exemplo completo em `/design-system/menu` (código em `app/design-system/menu/exemplo-portal.tsx`).
+
+- `MenuLateral` — `itens: { id, name, route, contador? }[]`, `icones?: Record<id, Icone>`, `marca?`, `onSair?`. O item ativo vem da rota atual.
+- `CabecalhoPortal` — `titulo?`, `nome?`, `perfil?`, `acoes?` (pôr aqui o sino).
+- `SinoNotificacoes` — `notificacoes: { id, title, message, type, read, createdAt, link? }[]`, `onMarcarComoLida?`, `onMarcarTodas?`, `verTodasHref?` (por defeito `/notificacoes`), `maximo?`.
+
+Os três têm de estar dentro de `<SidebarProvider>` com `<SidebarInset>` à volta do conteúdo:
+
+```tsx
+<SidebarProvider>
+  <MenuLateral itens={modulosDe(eu.perfil)} icones={ICONES} onSair={sair} />
+  <SidebarInset>
+    <CabecalhoPortal titulo="Aulas" nome={eu.nome} perfil={eu.perfil}
+      acoes={<SinoNotificacoes notificacoes={avisos} />} />
+    <main className="p-4 sm:p-8">{children}</main>
+  </SidebarInset>
+</SidebarProvider>
+```
+
+> Os nomes dos campos seguem o rascunho da frente Contratos (`g3/contratos`). Quando os contratos estiverem fechados, revemos estes tipos.
 
 ## Ecrã de login (para a frente Dados e login)
 
@@ -150,6 +179,16 @@ export function ListaContratos({ aCarregar, erro, contratos }) {
 }
 ```
 
-## Próximos componentes (planeado)
+## Testes de acessibilidade (Aula 3)
 
-- Aula 3: tabela, abas; integração com Contratos (cabeçalho, menu lateral, sino)
+Feitos com o axe-core (regras WCAG 2.1 AA) em `/design-system`, `/design-system/menu` e `/design-system/login`, a 1280 px e a 390 px (telemóvel): **sem problemas**.
+
+- Teclado: separadores com setas, sino abre com Enter, avisos abrem com Tab + Enter, diálogos fecham com Esc, menu com Ctrl+B.
+- Telemóvel: sem scroll horizontal; o menu abre como painel lateral.
+- Contraste: o texto secundário (`#566171`) tem 4.49:1 sobre o fundo da página (`#D9DADB`), mesmo abaixo de 4.5:1. Por isso **`text-muted-foreground` usa-se só sobre cartões e painéis** (5.0 a 5.8:1); diretamente no fundo usa-se `text-foreground`.
+
+## Próximos passos (Aula 4)
+
+- Rever os tipos do portal quando a frente Contratos fechar os contratos.
+- Entregar a secção de interface do `AGENTS.md` (rascunho em `docs/agents-secao-interface.md`).
+- Demonstração: montar um ecrã de lista ao vivo só com componentes.

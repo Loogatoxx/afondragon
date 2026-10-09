@@ -1,6 +1,7 @@
 import * as React from "react"
 import { CircleAlert } from "lucide-react"
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { cn } from "@/lib/utils"
 
 type MensagemErroProps = {
@@ -11,7 +12,10 @@ type MensagemErroProps = {
   className?: string
 }
 
-/** Mostrar quando um pedido falha. Explicar o que aconteceu e o que fazer. */
+/**
+ * Mostrar quando um pedido falha. Explicar o que aconteceu e o que fazer.
+ * Feito sobre o Alert do shadcn, numa versão suave para não assustar.
+ */
 export function MensagemErro({
   titulo = "Ocorreu um erro",
   mensagem = "Não foi possível carregar os dados. Tente novamente.",
@@ -19,21 +23,13 @@ export function MensagemErro({
   className,
 }: MensagemErroProps) {
   return (
-    <div
-      role="alert"
-      className={cn(
-        "border-destructive/50 bg-destructive/5 flex gap-3 rounded-lg border p-4",
-        className
-      )}
-    >
-      <CircleAlert className="text-destructive size-5 shrink-0" aria-hidden="true" />
-      <div className="flex-1 space-y-3">
-        <div className="space-y-1">
-          <p className="text-destructive font-medium">{titulo}</p>
-          <p className="text-muted-foreground text-sm">{mensagem}</p>
-        </div>
+    <Alert className={cn("border-destructive/50 bg-destructive/5 p-4", className)}>
+      <CircleAlert className="text-destructive!" aria-hidden="true" />
+      <AlertTitle className="text-destructive">{titulo}</AlertTitle>
+      <AlertDescription className="text-muted-foreground space-y-3">
+        <p>{mensagem}</p>
         {acao}
-      </div>
-    </div>
+      </AlertDescription>
+    </Alert>
   )
 }

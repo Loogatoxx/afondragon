@@ -20,6 +20,7 @@ import { EstadoVazio } from "@/components/comuns/estado-vazio";
 import { ACarregar } from "@/components/comuns/a-carregar";
 import { MensagemErro } from "@/components/comuns/mensagem-erro";
 import { ExemploDialog, ExemploSelect } from "./exemplos-interativos";
+import { ExemploTabela } from "./exemplo-tabela";
 
 export const metadata: Metadata = {
   title: "Design System — Plataforma PI2",
@@ -229,12 +230,12 @@ export default function DesignSystem() {
           <Card>
             <CardHeader>
               <CardTitle>Ecrãs de exemplo</CardTitle>
-              <CardDescription>Menu lateral (Contratos) e login (Dados e login).</CardDescription>
+              <CardDescription>Portal com menu, cabeçalho e sino (Contratos) e login (Dados e login).</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
                 <Button asChild variant="outline">
-                  <Link href="/design-system/menu">Ver exemplo do menu</Link>
+                  <Link href="/design-system/menu">Ver exemplo do portal</Link>
                 </Button>
                 <Button asChild variant="outline">
                   <Link href="/design-system/login">Ver exemplo de login</Link>
@@ -243,6 +244,13 @@ export default function DesignSystem() {
             </CardContent>
           </Card>
         </div>
+      </Seccao>
+
+      <Seccao
+        titulo="Dados: tabela, etiquetas e separadores (Aula 3)"
+        descricao="Um ecrã de lista completo. Mude de separador para ver os quatro estados."
+      >
+        <ExemploTabela />
       </Seccao>
 
       <Seccao
